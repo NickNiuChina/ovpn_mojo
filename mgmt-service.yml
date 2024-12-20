@@ -1,0 +1,41 @@
+---
+
+VERSION: v3.0.0
+
+secrets:
+  - 28424dd8069fe62f1f91a8d7d5e9ec858d8913e3
+
+db:
+  driver: 'Pg'
+  uname: 'postgres' 
+  passwd: 'postgres'
+  dbname: 'ovpnmgmt' 
+  # host: '172.16.20.4'
+  host: '127.0.0.1'
+  port: 5432
+
+hypnotoad: 
+  listen: 
+    - 'http://127.0.0.1:3000'
+  workers: 4
+  accepts: 50
+  clients: 100
+  pid_file: '/run/mgmt-hypnotoad.pid'
+
+log:
+    # currently relative log goes to /filename.log
+    relative: no
+    filename: /var/log/mgmt.log
+
+users:
+    admin: nimda2022
+    super: super2025
+    # user: user2025
+
+supported_languages:
+    - en
+    - zh
+
+ovpn_learn_address: 'yes'
+site_name: 'Carel Site'
+ovpn_status_file: '/etc/openvpn/server-tcp/openvpn-tcp-status.log'
