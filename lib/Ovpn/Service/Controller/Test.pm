@@ -1,5 +1,5 @@
 # Controller
-package Mgmt::Service::Controller::Test;
+package Ovpn::Service::Controller::Test;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Mojo::Home;
 

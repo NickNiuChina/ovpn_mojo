@@ -1,4 +1,4 @@
-package Mgmt::Service::Controller::Base;
+package Ovpn::Service::Controller::Base;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # This action will render a template

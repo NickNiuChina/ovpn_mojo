@@ -1,4 +1,4 @@
-package Mgmt::Service;
+package Ovpn::Service;
 use Mojo::Base 'Mojolicious', -signatures;
 use Mojo::Home;
 use Data::Printer;

@@ -1,4 +1,4 @@
-package Mgmt::Service::DB;
+package Ovpn::Service::DB;
 use strict;
 use warnings;
 use DBI;

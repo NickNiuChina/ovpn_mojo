@@ -1,4 +1,5 @@
 Mojolicious
 Time::Piece
 Mojo::Pg or Mojo::mysql for DB
+Mojolicious::Plugin::Cron
 # Mojolicious::Plugin::RenderFile

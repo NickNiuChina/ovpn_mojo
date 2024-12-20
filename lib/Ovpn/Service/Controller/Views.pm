@@ -1,7 +1,7 @@
-package Mgmt::Service::Controller::Views;
+package Ovpn::Service::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Data::Printer;
-use Mgmt::Service::DB;
+use Ovpn::Service::DB;
 use DBI;
 
 # change language
