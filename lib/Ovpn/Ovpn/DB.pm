@@ -1,4 +1,4 @@
-package Ovpn::Service::DB;
+package Ovpn::Mojo::DB;
 use strict;
 use warnings;
 use DBI;

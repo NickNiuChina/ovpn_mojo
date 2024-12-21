@@ -8,10 +8,10 @@ use Data::Printer;
 # openssl x509 -enddate -noout -in /opt/easyrsa-all/pki/issued/carel.boss2.crt
 
 my $driver   = "Pg";
-my $database = "mgmtdb";
+my $database = "ovpn_mojo";
 my $dsn = "DBI:$driver:dbname=$database;host=127.0.0.1;port=5432";
-my $userid = "mgmt";
-my $password = "rootroot";
+my $userid = "postgres";
+my $password = "postgres";
 my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
 
 my $sql = 'select cn, expiredate from tunovpnclients';

@@ -9,5 +9,5 @@ use Mojolicious::Commands;
 
 # Start command line interface for application
 
-Mojolicious::Commands->start_app('Mgmt::Service', 'daemon', '-m', 'development', '-l', 'http://*:3000');
-#Mojolicious::Commands->start_app('Mgmt::Service');
+Mojolicious::Commands->start_app('Ovpn::Mojo', 'daemon', '-m', 'development', '-l', 'http://*:3000');
+#Mojolicious::Commands->start_app('Ovpn::Mojo');

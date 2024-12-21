@@ -1,5 +1,5 @@
 # Chinese
-package Ovpn::Service::I18N::zh;
+package Ovpn::Mojo::I18N::zh;
 use Mojo::Base 'Locale::Maketext';
 use utf8;
 

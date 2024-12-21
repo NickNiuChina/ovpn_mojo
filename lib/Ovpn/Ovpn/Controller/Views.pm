@@ -1,7 +1,7 @@
-package Ovpn::Service::Controller::Views;
+package Ovpn::Mojo::Controller::Views;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Data::Printer;
-use Ovpn::Service::DB;
+use Ovpn::Mojo::DB;
 use DBI;
 
 # change language
@@ -46,7 +46,7 @@ sub clientsStatuslist ($c) {
     # p ($config);
     # say ($config->{db}->{dbname});
 
-    my $dbh = Mgmt::Service::DB->connect($c);
+    my $dbh = Ovpn::Mojo::DB->connect($c);
     # p $dbh;
     my $start = $c->req->body_params->param('start');
     my $draw = $c->req->body_params->param('draw'); 
@@ -141,7 +141,7 @@ sub clientsStatuslist ($c) {
 
 sub clientStatusUpdate ($c) {
 
-    my $dbh = Mgmt::Service::DB->connect($c);
+    my $dbh = Ovpn::Mojo::DB->connect($c);
 
     my $newstorename;
     my $result;
@@ -205,7 +205,7 @@ sub reqUpload ($c) {
     # debug
     # print "HHHHHHHHHHHHHHHHHHHHHHHHHH: " . $c->param('upload_req')->filename . "\n";
     $req->move_to($req_file);
-    my $result = `bash /opt/mgmt_service/vpntool/generate-requests.sh`; # SELFDEFINEDSUCCESS
+    my $result = `bash /opt/ovpn_mojo/vpntool/generate-requests.sh`; # SELFDEFINEDSUCCESS
     if ( $result =~ /SELFDEFINEDSUCCESS/m ) {
         $c->flash( message => 'Req file Uploaded sucessfully.' );
         $c->redirect_to('/service/issue');
@@ -241,7 +241,6 @@ sub reqsClientsListJson ($c) {
     my @filearray = ();
     my $file;
 
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/reqs-done';
     my $cert_dir = '/opt/easyrsa-all';
   
@@ -302,7 +301,6 @@ sub certedClientsListJson ($c) {
   my @filearray = ();
   my $file;
 
-  # my $dir = $ENV{MGMTSERVICEDIR};
   my $dir = '/opt/validated';
   
 
@@ -343,7 +341,6 @@ sub certedClientsListJson ($c) {
 sub reqClientsDelete ($c) {
     my $filename;
     my $result;
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/reqs-done/';
     $filename = $c->param('filename');
     if ( $filename ) {
@@ -364,7 +361,6 @@ sub reqClientsDelete ($c) {
 sub certedClientsDelete ($c) {
     my $filename;
     my $result;
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/validated/';
     $filename = $c->param('filename');
     if ( $filename ) {
@@ -387,7 +383,6 @@ sub certedClientsDelete ($c) {
 sub reqClientsDownload ($c) {
     my $filename;
     my $result;  # for future
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/reqs-done/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
@@ -400,7 +395,6 @@ sub reqClientsDownload ($c) {
 sub certedClientsDownload ($c) {
     my $filename;
     my $result;  # for future
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/validated/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
@@ -434,7 +428,7 @@ sub tunClientsStatus ($c) {
 
 sub tunClientsStatuslist ($c) {
     my $config = $c->config;
-    my $dbh = Mgmt::Service::DB->connect($c);
+    my $dbh = Ovpn::Mojo::DB->connect($c);
     # p $dbh;
     my $start = $c->req->body_params->param('start');
     my $draw = $c->req->body_params->param('draw'); 
@@ -529,7 +523,7 @@ sub tunClientsStatuslist ($c) {
 
 sub tunClientStatusUpdate ($c) {
 
-    my $dbh = Mgmt::Service::DB->connect($c);
+    my $dbh = Ovpn::Nojo::DB->connect($c);
 
     my $newstorename;
     my $result;
@@ -634,7 +628,7 @@ sub tunReqUpload ($c) {
     # debug
     # print "HHHHHHHHHHHHHHHHHHHHHHHHHH: " . $c->param('upload_req')->filename . "\n";
     $req->move_to($req_file);
-    my $result = `bash /opt/mgmt_service/vpntool/generate-requests-tun.sh`; # SELFDEFINEDSUCCESS
+    my $result = `bash /opt/ovpn_mojo/vpntool/generate-requests-tun.sh`; # SELFDEFINEDSUCCESS
     if ( $result =~ /SELFDEFINEDSUCCESS/m ) {
         $c->flash( message => 'Req file Uploaded sucessfully.' );
         $c->redirect_to('/service/tunissue');
@@ -667,7 +661,6 @@ sub tunReqsClientsListJson ($c) {
     my @filearray = ();
     my $file;
 
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/reqs-done';
     my $cert_dir = '/opt/tun-ovpn-files/easyrsa-tcp';
   
@@ -714,7 +707,6 @@ sub tunReqsClientsListJson ($c) {
 sub tunReqClientsDelete ($c) {
     my $filename;
     my $result;
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/reqs-done/';
     $filename = $c->param('filename');
     if ( $filename ) {
@@ -735,7 +727,6 @@ sub tunReqClientsDelete ($c) {
 sub tunreqClientsDownload ($c) {
     my $filename;
     my $result;  # for future
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/reqs-done/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
@@ -769,7 +760,6 @@ sub tunCertedClientsListJson ($c) {
     my @filearray = ();
     my $file;
 
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/validated';
 
 
@@ -810,7 +800,6 @@ sub tunCertedClientsListJson ($c) {
 sub tunCertedClientsDelete ($c) {
     my $filename;
     my $result;
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/validated/';
     $filename = $c->param('filename');
     if ( $filename ) {
@@ -830,7 +819,6 @@ sub tunCertedClientsDelete ($c) {
 sub tunCertedClientsDownload ($c) {
     my $filename;
     my $result;  # for future
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/validated/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
@@ -863,7 +851,6 @@ sub tunGenericCertedClientsListJson ($c) {
     my @filearray = ();
     my $file;
 
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/generic-ovpn';
 
 
@@ -904,7 +891,6 @@ sub tunGenericCertedClientsListJson ($c) {
 sub tunGenericCertedClientsDelete ($c) {
     my $filename;
     my $result;
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
     $filename = $c->param('filename');
     if ( $filename ) {
@@ -924,7 +910,6 @@ sub tunGenericCertedClientsDelete ($c) {
 sub tunGenericCertedClientsDownload ($c) {
     my $filename;
     my $result;  # for future
-    # my $dir = $ENV{MGMTSERVICEDIR};
     my $dir = '/opt/tun-ovpn-files/generic-ovpn/';
     $filename = $c->param('filename');
     my $file = $dir . $filename;
