@@ -9,7 +9,7 @@ db:
   driver: 'Pg'
   uname: 'postgres' 
   passwd: 'postgres'
-  dbname: 'ovpn_service' 
+  dbname: 'ovpn_mojo 
   # host: '172.16.20.4'
   host: '127.0.0.1'
   port: 5432
@@ -20,12 +20,12 @@ hypnotoad:
   workers: 4
   accepts: 50
   clients: 100
-  pid_file: '/run/ovpn-service-hypnotoad.pid'
+  pid_file: '/run/ovpn-mojo-hypnotoad.pid'
 
 log:
     # currently relative log goes to /filename.log
     relative: no
-    filename: /var/log/ovpn_service.log
+    filename: /var/log/ovpn_mojo.log
 
 users:
     admin: nimda2022
