@@ -1,0 +1,1 @@
+psql -U your_user_name your_db_name < your_dump_file
