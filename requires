@@ -8,5 +8,6 @@ Mojolicious::Plugin::I18N
 
 # ORM
 DBIx::Class
+
 # Create a DBIx::Class::Schema based on a database
 DBIx::Class::Schema::Loader

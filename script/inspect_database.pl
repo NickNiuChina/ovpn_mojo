@@ -18,3 +18,75 @@ make_schema_at(
     },
     [ 'dbi:Pg:dbname="ovpn_mojo"', 'postgres', 'postgres'],
 );
+
+__END__
+
+##### UserGroup.pm
+# default value
+sub new {
+  my $class = shift;
+  my $self = $class->next::method(@_);
+
+  foreach my $col ($self->result_source->columns) {
+    my $default = $self->result_source->column_info($col)->{default_value};
+        if($default && !defined $self->$col()){
+                if (ref $default eq 'SCALAR'){
+                        $self->set_column($col, $self->$$default);
+                } else {
+                        $self->set_column($col, $default)
+                }
+        }
+  }
+  # p $self;
+  return $self;
+}
+
+
+sub uuid() {
+    return Data::UUID->new->create_str ;
+}
+
+
+###  Reference ###############################################################################################################
+default values
+
+# https://stackoverflow.com/questions/75979451/dbixclass-how-to-retrieve-generated-uuid-on-create
+sub create {
+    my $self = shift;
+    my $qry  = shift;
+
+    return $self->SUPER::create( { %{$qry}, id => Data::UUID->new->create_str } );
+}
+#  over-wrote the create method to append a pre-generated UUID to the id field before executing the super-classes' create like so
+
+
+
+
+# https://stackoverflow.com/questions/2106504/perl-dbixclass-default-values-when-using-new
+sub new {
+  my $class = shift;
+  my $self = $class->next::method(@_);
+  foreach my $col ($self->result_source->columns) {
+    my $default = $self->result_source->column_info($col)->{default_value};
+    $self->$col($default) if($default && !defined $self->$col());
+  return $self;
+}
+
+
+# https://stackoverflow.com/questions/24182342/perl-dbixclass-is-it-possible-to-provide-a-default-value-for-inserting-by-us
+with moo
+
+
+
+
+Setting default values for a row
+
+It's as simple as overriding the new method. Note the use of next::method.             
+sub new {
+  my ( $class, $attrs ) = @_;
+  $attrs->{foo} = 'bar' unless defined $attrs->{foo};
+  my $new = $class->next::method($attrs);
+  return $new;
+}
+# set column
+# $result->set_column($col => $val);
