@@ -9,12 +9,12 @@ use Mojolicious::Commands;
 
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 
+$lib_dir = curfile->dirname->sibling('lib')->to_string;
+
 make_schema_at(
     'Ovpn::Mojo::Schema',
     { debug => 1,
-      dump_directory => '../dlib',
+      dump_directory => $lib_dir,
     },
-    [ 'dbi:Pg:dbname="ovpn_mojo"', 'postgres', 'postgres',
-       { loader_class => 'MyLoader' } # optionally
-    ],
+    [ 'dbi:Pg:dbname="ovpn_mojo"', 'postgres', 'postgres'],
 );
