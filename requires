@@ -11,3 +11,5 @@ DBIx::Class
 
 # Create a DBIx::Class::Schema based on a database
 DBIx::Class::Schema::Loader
+# this is for $schema->deploy or deployment_statements
+SQL::Translator
