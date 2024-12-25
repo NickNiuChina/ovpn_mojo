@@ -93,4 +93,29 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+sub new {
+  my $class = shift;
+  my $self = $class->next::method(@_);
+
+  foreach my $col ($self->result_source->columns) {
+    my $default = $self->result_source->column_info($col)->{default_value};
+        if($default && !defined $self->$col()){
+                if (ref $default eq 'SCALAR'){
+                        $self->set_column($col, $self->$$default);
+                } else {
+                        $self->set_column($col, $default)
+                }
+        }
+  }
+  # p $self;
+  return $self;
+}
+
+
+sub uuid() {
+    return lc(Data::UUID->new->create_str);
+}
+
+
 1;

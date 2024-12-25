@@ -21,10 +21,33 @@ make_schema_at(
 
 __END__
 
-#####
+##### if id null
 Currently in constructor check the id value and generate uuid if not
 
-##### UserGroup.pm
+sub new {
+  my $class = shift;
+  my $self = $class->next::method(@_);
+
+  foreach my $col ($self->result_source->columns) {
+    my $default = $self->result_source->column_info($col)->{default_value};
+        if($default && !defined $self->$col()){
+                if (ref $default eq 'SCALAR'){
+                        $self->set_column($col, $self->$$default);
+                } else {
+                        $self->set_column($col, $default)
+                }
+        }
+  }
+  # p $self;
+  return $self;
+}
+
+
+sub uuid() {
+    return Data::UUID->new->create_str ;
+}
+
+##### UserGroup.pm if default set
 # default value for uuid
 # in colomn define : \"uuid" This is currently only used to create tables from your schema.
 sub new {
