@@ -114,14 +114,12 @@ __PACKAGE__->table("ovpn_servers");
   data_type: 'timestamp with time zone'
   default_value: current_timestamp
   is_nullable: 0
-  original: {default_value => \"now()"}
 
 =head2 update_time
 
   data_type: 'timestamp with time zone'
   default_value: current_timestamp
   is_nullable: 0
-  original: {default_value => \"now()"}
 
 =cut
 
@@ -161,14 +159,12 @@ __PACKAGE__->add_columns(
     data_type     => "timestamp with time zone",
     default_value => \"current_timestamp",
     is_nullable   => 0,
-    original      => { default_value => \"now()" },
   },
   "update_time",
   {
     data_type     => "timestamp with time zone",
     default_value => \"current_timestamp",
     is_nullable   => 0,
-    original      => { default_value => \"now()" },
   },
 );
 
@@ -200,7 +196,7 @@ __PACKAGE__->add_unique_constraint("ovpn_servers_server_name_key", ["server_name
 
 =head1 RELATIONS
 
-=head2 ovpn_clients_configs
+=head2 ovpn_clients_config_ovpn_clients
 
 Type: has_many
 
@@ -209,13 +205,28 @@ Related object: L<Ovpn::Mojo::Schema::Result::OvpnClientsConfig>
 =cut
 
 __PACKAGE__->has_many(
-  "ovpn_clients_configs",
+  "ovpn_clients_config_ovpn_clients",
   "Ovpn::Mojo::Schema::Result::OvpnClientsConfig",
   { "foreign.ovpn_client" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 ovpn_clients_lists
+=head2 ovpn_clients_config_ovpn_clients_2s
+
+Type: has_many
+
+Related object: L<Ovpn::Mojo::Schema::Result::OvpnClientsConfig>
+
+=cut
+
+__PACKAGE__->has_many(
+  "ovpn_clients_config_ovpn_clients_2s",
+  "Ovpn::Mojo::Schema::Result::OvpnClientsConfig",
+  { "foreign.ovpn_client" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 ovpn_clients_list_servers
 
 Type: has_many
 
@@ -224,15 +235,30 @@ Related object: L<Ovpn::Mojo::Schema::Result::OvpnClientsList>
 =cut
 
 __PACKAGE__->has_many(
-  "ovpn_clients_lists",
+  "ovpn_clients_list_servers",
+  "Ovpn::Mojo::Schema::Result::OvpnClientsList",
+  { "foreign.server" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 ovpn_clients_list_servers_2s
+
+Type: has_many
+
+Related object: L<Ovpn::Mojo::Schema::Result::OvpnClientsList>
+
+=cut
+
+__PACKAGE__->has_many(
+  "ovpn_clients_list_servers_2s",
   "Ovpn::Mojo::Schema::Result::OvpnClientsList",
   { "foreign.server" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-24 09:21:05
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:WZBNSuVjLieST0Aq5ql7Kw
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 09:24:13
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rRELz33c91dK/SmdH8FDsw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
