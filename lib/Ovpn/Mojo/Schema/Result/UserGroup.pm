@@ -43,7 +43,6 @@ __PACKAGE__->add_columns(
     data_type => "uuid", 
     is_nullable => 0, 
     size => 16, 
-    default_value => \"uuid",
   },
   "group",
   { data_type => "varchar", is_nullable => 0, size => 50 },

@@ -21,8 +21,12 @@ make_schema_at(
 
 __END__
 
+#####
+Currently in constructor check the id value and generate uuid if not
+
 ##### UserGroup.pm
-# default value
+# default value for uuid
+# in colomn define : \"uuid" This is currently only used to create tables from your schema.
 sub new {
   my $class = shift;
   my $self = $class->next::method(@_);
