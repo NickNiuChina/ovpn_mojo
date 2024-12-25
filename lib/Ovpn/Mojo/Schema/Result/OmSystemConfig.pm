@@ -1,12 +1,12 @@
 use utf8;
-package Ovpn::Mojo::Schema::Result::SystemConfig;
+package Ovpn::Mojo::Schema::Result::OmSystemConfig;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Ovpn::Mojo::Schema::Result::SystemConfig
+Ovpn::Mojo::Schema::Result::OmSystemConfig
 
 =cut
 
@@ -15,11 +15,11 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-=head1 TABLE: C<system_config>
+=head1 TABLE: C<om_system_config>
 
 =cut
 
-__PACKAGE__->table("system_config");
+__PACKAGE__->table("om_system_config");
 
 =head1 ACCESSORS
 
@@ -65,8 +65,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("item");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 09:30:42
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:el7c3/DK+cNaQF08yMZnwg
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 13:25:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FH/V2CmZf/q3nFFpDgWuJw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

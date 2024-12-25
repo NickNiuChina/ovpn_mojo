@@ -1,12 +1,12 @@
 use utf8;
-package Ovpn::Mojo::Schema::Result::User;
+package Ovpn::Mojo::Schema::Result::OmUser;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Ovpn::Mojo::Schema::Result::User
+Ovpn::Mojo::Schema::Result::OmUser
 
 =cut
 
@@ -15,11 +15,11 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-=head1 TABLE: C<user>
+=head1 TABLE: C<om_users>
 
 =cut
 
-__PACKAGE__->table("user");
+__PACKAGE__->table("om_users");
 
 =head1 ACCESSORS
 
@@ -116,20 +116,20 @@ __PACKAGE__->set_primary_key("id");
 
 Type: belongs_to
 
-Related object: L<Ovpn::Mojo::Schema::Result::UserGroup>
+Related object: L<Ovpn::Mojo::Schema::Result::OmGroup>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "group",
-  "Ovpn::Mojo::Schema::Result::UserGroup",
+  "Ovpn::Mojo::Schema::Result::OmGroup",
   { id => "group_id" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 09:30:42
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HQbkcNP37lwDdPp1Chm7CA
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 13:25:08
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6P+xRXBLOLthuDi9qG0Yyg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
