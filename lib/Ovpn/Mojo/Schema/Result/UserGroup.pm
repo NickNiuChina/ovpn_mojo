@@ -29,7 +29,7 @@ __PACKAGE__->table("user_group");
   is_nullable: 0
   size: 16
 
-=head2 group
+=head2 group_name
 
   data_type: 'varchar'
   is_nullable: 0
@@ -40,7 +40,7 @@ __PACKAGE__->table("user_group");
 __PACKAGE__->add_columns(
   "id",
   { data_type => "uuid", is_nullable => 0, size => 16 },
-  "group",
+  "group_name",
   { data_type => "varchar", is_nullable => 0, size => 50 },
 );
 
@@ -62,13 +62,13 @@ __PACKAGE__->set_primary_key("id");
 
 =over 4
 
-=item * L</group>
+=item * L</group_name>
 
 =back
 
 =cut
 
-__PACKAGE__->add_unique_constraint("user_group_group_key", ["group"]);
+__PACKAGE__->add_unique_constraint("user_group_group_key", ["group_name"]);
 
 =head1 RELATIONS
 
@@ -88,8 +88,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 09:24:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HPLK+IjVnOrsl7Kiy7McVA
+# Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 09:30:42
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZeCDMTbYAWhllJEW0jgS0A
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
