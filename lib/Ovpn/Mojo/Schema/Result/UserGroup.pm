@@ -44,7 +44,7 @@ __PACKAGE__->add_columns(
     is_nullable => 0, 
     size => 16, 
   },
-  "group",
+  "group_name",
   { data_type => "varchar", is_nullable => 0, size => 50 },
 );
 
@@ -58,7 +58,7 @@ __PACKAGE__->add_columns(
 
 =cut
 
-__PACKAGE__->set_primary_key("id");
+__PACKAGE__->j("id");
 
 =head1 UNIQUE CONSTRAINTS
 

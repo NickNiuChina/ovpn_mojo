@@ -5,7 +5,7 @@
 -- Dumped from database version 15.3
 -- Dumped by pg_dump version 15.3
 
--- Started on 2024-12-23 09:59:48
+-- Started on 2024-12-25 09:21:33
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -42,7 +42,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 220 (class 1259 OID 17704)
+-- TOC entry 214 (class 1259 OID 17756)
 -- Name: ovpn_clients_config; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -61,7 +61,7 @@ CREATE TABLE public.ovpn_clients_config (
 ALTER TABLE public.ovpn_clients_config OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 17688)
+-- TOC entry 215 (class 1259 OID 17763)
 -- Name: ovpn_clients_list; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -81,7 +81,7 @@ CREATE TABLE public.ovpn_clients_list (
 ALTER TABLE public.ovpn_clients_list OWNER TO postgres;
 
 --
--- TOC entry 216 (class 1259 OID 17666)
+-- TOC entry 216 (class 1259 OID 17770)
 -- Name: ovpn_common_config; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -98,7 +98,7 @@ CREATE TABLE public.ovpn_common_config (
 ALTER TABLE public.ovpn_common_config OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 17655)
+-- TOC entry 217 (class 1259 OID 17775)
 -- Name: ovpn_servers; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -126,7 +126,7 @@ CREATE TABLE public.ovpn_servers (
 ALTER TABLE public.ovpn_servers OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 17673)
+-- TOC entry 218 (class 1259 OID 17782)
 -- Name: system_config; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -140,7 +140,7 @@ CREATE TABLE public.system_config (
 ALTER TABLE public.system_config OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 17678)
+-- TOC entry 219 (class 1259 OID 17785)
 -- Name: user; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -160,21 +160,21 @@ CREATE TABLE public."user" (
 ALTER TABLE public."user" OWNER TO postgres;
 
 --
--- TOC entry 214 (class 1259 OID 17648)
+-- TOC entry 220 (class 1259 OID 17788)
 -- Name: user_group; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.user_group (
     id uuid NOT NULL,
-    "group" character varying(50) NOT NULL
+    group_name character varying(50) NOT NULL
 );
 
 
 ALTER TABLE public.user_group OWNER TO postgres;
 
 --
--- TOC entry 3375 (class 0 OID 17704)
--- Dependencies: 220
+-- TOC entry 3369 (class 0 OID 17756)
+-- Dependencies: 214
 -- Data for Name: ovpn_clients_config; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -183,8 +183,8 @@ COPY public.ovpn_clients_config (id, ovpn_client, http_port, https_port, http_pr
 
 
 --
--- TOC entry 3374 (class 0 OID 17688)
--- Dependencies: 219
+-- TOC entry 3370 (class 0 OID 17763)
+-- Dependencies: 215
 -- Data for Name: ovpn_clients_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -193,7 +193,7 @@ COPY public.ovpn_clients_list (id, server, site_name, cn, ip, toggle_time, expir
 
 
 --
--- TOC entry 3371 (class 0 OID 17666)
+-- TOC entry 3371 (class 0 OID 17770)
 -- Dependencies: 216
 -- Data for Name: ovpn_common_config; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -203,8 +203,8 @@ COPY public.ovpn_common_config (id, plain_req_file_dir, encrypt_req_file_dir, pl
 
 
 --
--- TOC entry 3370 (class 0 OID 17655)
--- Dependencies: 215
+-- TOC entry 3372 (class 0 OID 17775)
+-- Dependencies: 217
 -- Data for Name: ovpn_servers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -213,8 +213,8 @@ COPY public.ovpn_servers (id, server_name, configuration_dir, configuration_file
 
 
 --
--- TOC entry 3372 (class 0 OID 17673)
--- Dependencies: 217
+-- TOC entry 3373 (class 0 OID 17782)
+-- Dependencies: 218
 -- Data for Name: system_config; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -223,8 +223,8 @@ COPY public.system_config (item, ivalue, category) FROM stdin;
 
 
 --
--- TOC entry 3373 (class 0 OID 17678)
--- Dependencies: 218
+-- TOC entry 3374 (class 0 OID 17785)
+-- Dependencies: 219
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -233,17 +233,17 @@ COPY public."user" (id, username, password, name, email, group_id, line_size, pa
 
 
 --
--- TOC entry 3369 (class 0 OID 17648)
--- Dependencies: 214
+-- TOC entry 3375 (class 0 OID 17788)
+-- Dependencies: 220
 -- Data for Name: user_group; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.user_group (id, "group") FROM stdin;
+COPY public.user_group (id, group_name) FROM stdin;
 \.
 
 
 --
--- TOC entry 3223 (class 2606 OID 17712)
+-- TOC entry 3205 (class 2606 OID 17792)
 -- Name: ovpn_clients_config ovpn_clients_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -252,7 +252,7 @@ ALTER TABLE ONLY public.ovpn_clients_config
 
 
 --
--- TOC entry 3219 (class 2606 OID 17698)
+-- TOC entry 3207 (class 2606 OID 17794)
 -- Name: ovpn_clients_list ovpn_clients_list_cn_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -261,7 +261,7 @@ ALTER TABLE ONLY public.ovpn_clients_list
 
 
 --
--- TOC entry 3221 (class 2606 OID 17696)
+-- TOC entry 3209 (class 2606 OID 17796)
 -- Name: ovpn_clients_list ovpn_clients_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -270,7 +270,7 @@ ALTER TABLE ONLY public.ovpn_clients_list
 
 
 --
--- TOC entry 3213 (class 2606 OID 17672)
+-- TOC entry 3211 (class 2606 OID 17798)
 -- Name: ovpn_common_config ovpn_common_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -279,7 +279,7 @@ ALTER TABLE ONLY public.ovpn_common_config
 
 
 --
--- TOC entry 3209 (class 2606 OID 17663)
+-- TOC entry 3213 (class 2606 OID 17800)
 -- Name: ovpn_servers ovpn_servers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -288,7 +288,7 @@ ALTER TABLE ONLY public.ovpn_servers
 
 
 --
--- TOC entry 3211 (class 2606 OID 17665)
+-- TOC entry 3215 (class 2606 OID 17802)
 -- Name: ovpn_servers ovpn_servers_server_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -297,7 +297,7 @@ ALTER TABLE ONLY public.ovpn_servers
 
 
 --
--- TOC entry 3215 (class 2606 OID 17677)
+-- TOC entry 3217 (class 2606 OID 17804)
 -- Name: system_config system_config_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -306,16 +306,16 @@ ALTER TABLE ONLY public.system_config
 
 
 --
--- TOC entry 3205 (class 2606 OID 17654)
+-- TOC entry 3221 (class 2606 OID 17806)
 -- Name: user_group user_group_group_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.user_group
-    ADD CONSTRAINT user_group_group_key UNIQUE ("group");
+    ADD CONSTRAINT user_group_group_key UNIQUE (group_name);
 
 
 --
--- TOC entry 3207 (class 2606 OID 17652)
+-- TOC entry 3223 (class 2606 OID 17808)
 -- Name: user_group user_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -324,7 +324,7 @@ ALTER TABLE ONLY public.user_group
 
 
 --
--- TOC entry 3217 (class 2606 OID 17682)
+-- TOC entry 3219 (class 2606 OID 17810)
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -333,7 +333,7 @@ ALTER TABLE ONLY public."user"
 
 
 --
--- TOC entry 3226 (class 2606 OID 17713)
+-- TOC entry 3224 (class 2606 OID 17811)
 -- Name: ovpn_clients_config ovpn_clients_config_ovpn_client_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -342,7 +342,7 @@ ALTER TABLE ONLY public.ovpn_clients_config
 
 
 --
--- TOC entry 3225 (class 2606 OID 17699)
+-- TOC entry 3225 (class 2606 OID 17816)
 -- Name: ovpn_clients_list ovpn_clients_list_server_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -351,7 +351,7 @@ ALTER TABLE ONLY public.ovpn_clients_list
 
 
 --
--- TOC entry 3224 (class 2606 OID 17683)
+-- TOC entry 3226 (class 2606 OID 17821)
 -- Name: user user_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -359,7 +359,7 @@ ALTER TABLE ONLY public."user"
     ADD CONSTRAINT user_group_id_fkey FOREIGN KEY (group_id) REFERENCES public.user_group(id);
 
 
--- Completed on 2024-12-23 09:59:49
+-- Completed on 2024-12-25 09:21:34
 
 --
 -- PostgreSQL database dump complete
