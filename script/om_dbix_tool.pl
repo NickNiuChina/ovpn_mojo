@@ -1,23 +1,109 @@
 #!/usr/bin/env perl
 
+use autodie;
 use strict;
-use warnings;
+use utf8;
+use warnings qw(all);
 
+use Getopt::Long;
+use Pod::Usage;
+use FindBin;
+use lib "$FindBin::Bin/lib";
+use Data::Printer;
+
+use Ovpn::Mojo::Schema;
 use Mojo::File qw(curfile);
 use lib curfile->dirname->sibling('lib')->to_string;
 use Mojolicious::Commands;
-
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 
-my $lib_dir = curfile->dirname->sibling('lib')->to_string;
+# VERSION 20241225
 
-make_schema_at(
-    'Ovpn::Mojo::Schema',
-    { debug => 1,
-      dump_directory => $lib_dir,
-    },
-    [ 'dbi:Pg:dbname="ovpn_mojo"', 'postgres', 'postgres'],
-);
+=head1 SYNOPSIS
+
+    ./om_dbix_tool.pl [options]
+    
+    OPTIONS
+        -a,--action [action]
+            
+                make_schema: read database and generate schema 
+
+                deploy: deploy the schema to database 
+
+                deploy_statements: Generate the deploy sql but not deploy at this time
+
+        -h,--help
+            Print this help.
+
+=head1 NAME
+
+    perl script to test or operate DBIx::Class
+
+=head1 DESCRIPTION
+    This script act based on action and for DBIx::Class schemas
+
+=cut
+
+GetOptions(
+    q(help)             => \my $help,
+    q(action=s)           => \my $action,
+    q(verbose)          => \my $verbose,
+) or pod2usage(q(-verbose) => 1);
+pod2usage(q(-verbose) => 1) if $help or !defined $action;
+
+# check if parameter is correct
+my @func_params = ('make_schema', 'deploy_statements', 'deploy', 'test');
+my %correct_params = map { $_ => 1 } @func_params;
+
+unless (exists($correct_params{$action})){
+        print "\nGet incorrect action!\n\n";
+        pod2usage(q(-verbose) => 1);
+}
+
+my $schema = Ovpn::Mojo::Schema->connect('dbi:Pg:database=ovpn_mojo', 'postgres', 'postgres');
+
+# make_schema
+if ($action eq 'make_schema') {
+    my $lib_dir = curfile->dirname->sibling('lib')->to_string;
+    make_schema_at(
+        'Ovpn::Mojo::Schema',
+        { debug => 1,
+        dump_directory => './lib',
+        },
+        [ 'dbi:Pg:dbname="ovpn_mojo"', 'postgres', 'postgres'],
+    );
+}
+
+
+# deploy_statements
+if ($action eq 'deploy_statements') {
+    my $deploy_statements = $schema->deployment_statements;
+    print "$deploy_statements\n";
+}
+
+
+# deploy
+if ($action eq 'deploy') {
+    print("Deploy the schema now...\n");
+    $schema->deploy;
+    print("Schema deploy done.\n");
+}
+
+# run some tests
+if ($action eq 'test'){
+    # ADD 
+    my $new_ug = $schema->resultset('OmGroup')->new({"name" => 'TEST'});
+    p $new_ug;
+    $new_ug->insert;
+
+    # SELECT
+
+    # DELETE
+
+    # UPDSTE
+}
+
+
 
 __END__
 
