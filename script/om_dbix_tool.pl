@@ -89,13 +89,43 @@ if ($action eq 'deploy') {
     print("Schema deploy done.\n");
 }
 
-# run some tests
+# test
 if ($action eq 'test'){
     # ADD
+    print "### 1. Add data ### \n"; 
     print "Add test group, name: TEST\n"; 
-    my $new_ug = $schema->resultset('OmGroup')->new({"name" => 'TEST'});
-    p $new_ug;
-    $new_ug->insert;
+    my $ug = $schema->resultset('OmGroup')->search({ name => 'TEST' })->first();
+    if ($ug) {
+        print "\tgroup: Test has been added before. Skip.\n";
+    } else {
+        print "\tAnd group now： TEST now...";
+        my $new_ug = $schema->resultset('OmGroup')->new({"name" => 'TEST'});
+        $new_ug->insert;
+        print "New group added done.";
+    }
+
+    print "Add test user, name: test1\n"; 
+    my $ug = $schema->resultset('OmGroup')->search({ name => 'TEST' })->first();
+    my $u_id = $ug->group_id;
+
+    my $user = $schema->resultset("OmUser")->search({ username => 'test1' })->first();
+    
+    if ($user) {
+        print "\tuser: test1 has been added before. Skip.\n";
+    } else {
+        print "\tAnd user: test1 now...";
+        my $new_user = $schema->resultset('OmUser')->new({
+            username => 'tes1',
+            password => 'test1',
+            name => 'name',
+            email => 'test1@test1.com',
+            group_id => $u_id
+            });
+        $new_user->insert;
+        print "New group added done.";
+        p $new_user;
+    }
+
 
     # SELECT
 
@@ -103,6 +133,11 @@ if ($action eq 'test'){
 
     # UPDSTE
 }
+
+# prepare test data
+
+# delete test data
+
 
 
 
