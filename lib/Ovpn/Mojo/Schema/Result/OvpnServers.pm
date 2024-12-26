@@ -1,12 +1,12 @@
 use utf8;
-package Ovpn::Mojo::Schema::Result::OvpnServer;
+package Ovpn::Mojo::Schema::Result::OvpnServers;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Ovpn::Mojo::Schema::Result::OvpnServer
+Ovpn::Mojo::Schema::Result::OvpnServers
 
 =cut
 
@@ -219,13 +219,13 @@ __PACKAGE__->has_many(
 
 Type: has_many
 
-Related object: L<Ovpn::Mojo::Schema::Result::OvpnClientsList>
+Related object: L<Ovpn::Mojo::Schema::Result::OvpnClients>
 
 =cut
 
 __PACKAGE__->has_many(
-  "ovpn_clients_lists",
-  "Ovpn::Mojo::Schema::Result::OvpnClientsList",
+  "ovpn_clients",
+  "Ovpn::Mojo::Schema::Result::OvpnClients",
   { "foreign.server" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );

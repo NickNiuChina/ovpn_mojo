@@ -64,6 +64,19 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("item");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<om_system_config_item_key>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("om_system_config_item_key", ["item"]);
 
 # Created by DBIx::Class::Schema::Loader v0.07052 @ 2024-12-25 13:25:08
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FH/V2CmZf/q3nFFpDgWuJw

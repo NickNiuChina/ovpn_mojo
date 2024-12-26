@@ -1,12 +1,12 @@
 use utf8;
-package Ovpn::Mojo::Schema::Result::OmUser;
+package Ovpn::Mojo::Schema::Result::OmUsers;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Ovpn::Mojo::Schema::Result::OmUser
+Ovpn::Mojo::Schema::Result::OmUsers
 
 =cut
 
@@ -110,19 +110,33 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 UNIQUE CONSTRAINTS
+
+=head2 C<om_users_username_key>
+
+=over 4
+
+=item * L</name>
+
+=back
+
+=cut
+
+__PACKAGE__->add_unique_constraint("om_user_username_key", ["username"]);
+
 =head1 RELATIONS
 
 =head2 group
 
 Type: belongs_to
 
-Related object: L<Ovpn::Mojo::Schema::Result::OmGroup>
+Related object: L<Ovpn::Mojo::Schema::Result::OmGroups>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "group",
-  "Ovpn::Mojo::Schema::Result::OmGroup",
+  "Ovpn::Mojo::Schema::Result::OmGroups",
   { id => "group_id" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );

@@ -1,12 +1,12 @@
 use utf8;
-package Ovpn::Mojo::Schema::Result::OvpnClientsList;
+package Ovpn::Mojo::Schema::Result::OvpnClients;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Ovpn::Mojo::Schema::Result::OvpnClientsList
+Ovpn::Mojo::Schema::Result::OvpnClients
 
 =cut
 
@@ -15,11 +15,11 @@ use warnings;
 
 use base 'DBIx::Class::Core';
 
-=head1 TABLE: C<ovpn_clients_list>
+=head1 TABLE: C<ovpn_clients>
 
 =cut
 
-__PACKAGE__->table("ovpn_clients_list");
+__PACKAGE__->table("ovpn_clients");
 
 =head1 ACCESSORS
 
@@ -139,7 +139,7 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<ovpn_clients_list_cn_key>
+=head2 C<ovpn_clients_cn_key>
 
 =over 4
 
@@ -149,7 +149,7 @@ __PACKAGE__->set_primary_key("id");
 
 =cut
 
-__PACKAGE__->add_unique_constraint("ovpn_clients_list_cn_key", ["cn"]);
+__PACKAGE__->add_unique_constraint("ovpn_clients_cn_key", ["cn"]);
 
 =head1 RELATIONS
 

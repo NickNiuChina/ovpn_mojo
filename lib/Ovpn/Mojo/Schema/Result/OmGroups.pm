@@ -1,13 +1,13 @@
 use utf8;
 use Data::UUID;
-package Ovpn::Mojo::Schema::Result::OmGroup;
+package Ovpn::Mojo::Schema::Result::OmGroups;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-Ovpn::Mojo::Schema::Result::OmGroup
+Ovpn::Mojo::Schema::Result::OmGroups
 
 =cut
 
@@ -20,7 +20,7 @@ use base 'DBIx::Class::Core';
 
 =cut
 
-__PACKAGE__->table("om_group");
+__PACKAGE__->table("om_groups");
 
 =head1 ACCESSORS
 
@@ -59,7 +59,7 @@ __PACKAGE__->set_primary_key("id");
 
 =head1 UNIQUE CONSTRAINTS
 
-=head2 C<user_group_group_key>
+=head2 C<om_groups_group_key>
 
 =over 4
 
@@ -69,7 +69,7 @@ __PACKAGE__->set_primary_key("id");
 
 =cut
 
-__PACKAGE__->add_unique_constraint("user_group_group_key", ["name"]);
+__PACKAGE__->add_unique_constraint("om_groups_group_key", ["name"]);
 
 =head1 RELATIONS
 
@@ -77,13 +77,13 @@ __PACKAGE__->add_unique_constraint("user_group_group_key", ["name"]);
 
 Type: has_many
 
-Related object: L<Ovpn::Mojo::Schema::Result::OmUser>
+Related object: L<Ovpn::Mojo::Schema::Result::OmUsers>
 
 =cut
 
 __PACKAGE__->has_many(
-  "om_users",
-  "Ovpn::Mojo::Schema::Result::OmUser",
+  "users",
+  "Ovpn::Mojo::Schema::Result::OmUsers",
   { "foreign.group_id" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
