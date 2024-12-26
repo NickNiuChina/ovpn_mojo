@@ -122,13 +122,13 @@ __PACKAGE__->set_primary_key("id");
 
 Type: belongs_to
 
-Related object: L<Ovpn::Mojo::Schema::Result::OvpnServer>
+Related object: L<Ovpn::Mojo::Schema::Result::OvpnServers>
 
 =cut
 
 __PACKAGE__->belongs_to(
-  "ovpn_client",
-  "Ovpn::Mojo::Schema::Result::OvpnServer",
+  "client",
+  "Ovpn::Mojo::Schema::Result::OvpnServers",
   { id => "ovpn_client" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
