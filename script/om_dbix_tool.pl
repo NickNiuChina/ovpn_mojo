@@ -91,7 +91,8 @@ if ($action eq 'deploy') {
 
 # run some tests
 if ($action eq 'test'){
-    # ADD 
+    # ADD
+    print "Add test group, name: TEST\n"; 
     my $new_ug = $schema->resultset('OmGroup')->new({"name" => 'TEST'});
     p $new_ug;
     $new_ug->insert;
