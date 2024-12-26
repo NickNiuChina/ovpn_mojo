@@ -163,7 +163,7 @@ Related object: L<Ovpn::Mojo::Schema::Result::OvpnServer>
 
 __PACKAGE__->belongs_to(
   "server",
-  "Ovpn::Mojo::Schema::Result::OvpnServer",
+  "Ovpn::Mojo::Schema::Result::OvpnServers",
   { id => "server" },
   { is_deferrable => 0, on_delete => "NO ACTION", on_update => "NO ACTION" },
 );
