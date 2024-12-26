@@ -10,11 +10,11 @@ use Pod::Usage;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 use Data::Printer;
-
-use Ovpn::Mojo::Schema;
 use Mojo::File qw(curfile);
 use lib curfile->dirname->sibling('lib')->to_string;
 use Mojolicious::Commands;
+
+use Ovpn::Mojo::Schema;
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 
 # VERSION 20241225
@@ -105,15 +105,15 @@ if ($action eq 'test'){
     }
 
     print "Add test user, name: test1\n"; 
-    my $ug = $schema->resultset('OmGroup')->search({ name => 'TEST' })->first();
-    my $u_id = $ug->group_id;
+    $ug = $schema->resultset('OmGroup')->search({ name => 'TEST' })->first();
+    my $u_id = $ug->id;
 
     my $user = $schema->resultset("OmUser")->search({ username => 'test1' })->first();
     
     if ($user) {
         print "\tuser: test1 has been added before. Skip.\n";
     } else {
-        print "\tAnd user: test1 now...";
+        print "\tAnd user: test1 now...\n";
         my $new_user = $schema->resultset('OmUser')->new({
             username => 'tes1',
             password => 'test1',
@@ -122,7 +122,7 @@ if ($action eq 'test'){
             group_id => $u_id
             });
         $new_user->insert;
-        print "New group added done.";
+        print "New group added done.\n`";
         p $new_user;
     }
 
