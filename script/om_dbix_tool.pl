@@ -13,6 +13,7 @@ use Data::Printer;
 use Mojo::File qw(curfile);
 use lib curfile->dirname->sibling('lib')->to_string;
 use Mojolicious::Commands;
+use Crypt::Password;
 
 use Ovpn::Mojo::Schema;
 use DBIx::Class::Schema::Loader qw/ make_schema_at /;
@@ -175,7 +176,7 @@ if ($action eq 'prepare_test_data'){
             print "\tAnd user: test$item now...\n";
             my $new_user = $schema->resultset('OmUsers')->new({
                 username => "test$item",
-                password => "test$item",
+                password => password("test$item"),
                 name => "test$item",
                 email => "test$item\@test.com",
                 group_id => $u_id
@@ -189,14 +190,14 @@ if ($action eq 'prepare_test_data'){
 
 # delete test data
 if ($action eq 'delete_test_data'){
-        print "Delete users now: like 'test%'\n";
-        my $users = $schema->resultset("OmUsers")->search({ username => { -like => "test%" }});
-        $users->delete;
-        print "Delete group: 'TEST'\n";        
-        my $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
-        if ($ug) {
-            $ug->delete;
-        }
+    print "Delete users now: like 'test%'\n";
+    my $users = $schema->resultset("OmUsers")->search({ username => { -like => "test%" }});
+    $users->delete;
+    print "Delete group: 'TEST'\n";        
+    my $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+    if ($ug) {
+        $ug->delete;
+    }
 }
 
 
