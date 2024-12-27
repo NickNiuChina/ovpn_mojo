@@ -189,7 +189,6 @@ if ($action eq 'prepare_test_data'){
 
 # delete test data
 if ($action eq 'delete_test_data'){
-    foreach my $item (1..200) {
         print "Delete users now: like 'test%'\n";
         my $users = $schema->resultset("OmUsers")->search({ username => { -like => "test%" }});
         $users->delete;
@@ -198,7 +197,6 @@ if ($action eq 'delete_test_data'){
         if ($ug) {
             $ug->delete;
         }
-    }
 }
 
 
