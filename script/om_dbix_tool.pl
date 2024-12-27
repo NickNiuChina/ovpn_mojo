@@ -191,12 +191,13 @@ if ($action eq 'prepare_test_data'){
 if ($action eq 'delete_test_data'){
     foreach my $item (1..200) {
         print "Delete users now: like 'test%'\n";
-        my $users = $schema->resultset("OmUsers")->search_like({ username => "test%" });
+        my $users = $schema->resultset("OmUsers")->search({ username => { -like => "test%" }});
         $users->delete;
         print "Delete group: 'TEST'\n";        
         my $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
-        $ug->delete;
-
+        if ($ug) {
+            $ug->delete;
+        }
     }
 }
 
