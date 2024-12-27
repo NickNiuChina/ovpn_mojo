@@ -163,7 +163,7 @@ if ($action eq 'prepare_test_data'){
     }
     
     print "Add test users, name: test1-200\n"; 
-   
+    my $user_password =  '';
     foreach my $item (1..200) {
         
         $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
@@ -174,15 +174,17 @@ if ($action eq 'prepare_test_data'){
             print "\tuser: test$item has been added before. Skip.\n";
         } else {
             print "\tAnd user: test$item now...\n";
+	    $user_password = password("test$item");
             my $new_user = $schema->resultset('OmUsers')->new({
                 username => "test$item",
-                password => password("test$item"),
+                password => $user_password,
                 name => "test$item",
                 email => "test$item\@test.com",
                 group_id => $u_id
                 });
             $new_user->insert;
             # p $new_user;
+            print "\tNew user password: $user_password\n`";
             print "\tNew user added done: test$item.\n`";
         }
     }
