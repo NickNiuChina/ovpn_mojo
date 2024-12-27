@@ -177,7 +177,7 @@ if ($action eq 'prepare_test_data'){
                 username => "test$item",
                 password => "test$item",
                 name => "test$item",
-                email => "test$item@test.com",
+                email => "test$item\@test.com",
                 group_id => $u_id
                 });
             $new_user->insert;
@@ -194,8 +194,8 @@ if ($action eq 'delete_test_data'){
         my $users = $schema->resultset("OmUsers")->search_like({ username => "test%" });
         $users->delete;
         print "Delete group: 'TEST'\n";        
-        $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
-        my $u_id = $ug->delete;
+        my $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+        $ug->delete;
 
     }
 }
