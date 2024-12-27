@@ -94,27 +94,27 @@ if ($action eq 'test'){
     # ADD
     print "### 1. Add data ### \n"; 
     print "Add test group, name: TEST\n"; 
-    my $ug = $schema->resultset('OmGroup')->search({ name => 'TEST' })->first();
+    my $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
     if ($ug) {
         print "\tgroup: Test has been added before. Skip.\n";
     } else {
         print "\tAnd group now： TEST now...";
-        my $new_ug = $schema->resultset('OmGroup')->new({"name" => 'TEST'});
+        my $new_ug = $schema->resultset('OmGroups')->new({"name" => 'TEST'});
         $new_ug->insert;
         print "New group added done.";
     }
 
     print "Add test user, name: test1\n"; 
-    $ug = $schema->resultset('OmGroup')->search({ name => 'TEST' })->first();
+    $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
     my $u_id = $ug->id;
 
-    my $user = $schema->resultset("OmUser")->search({ username => 'test1' })->first();
+    my $user = $schema->resultset("OmUsers")->search({ username => 'test1' })->first();
     
     if ($user) {
         print "\tuser: test1 has been added before. Skip.\n";
     } else {
         print "\tAnd user: test1 now...\n";
-        my $new_user = $schema->resultset('OmUser')->new({
+        my $new_user = $schema->resultset('OmUsers')->new({
             username => 'tes1',
             password => 'test1',
             name => 'name',
