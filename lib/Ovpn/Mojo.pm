@@ -64,7 +64,6 @@ sub startup ($c) {
     $r->get('/')->to('Auth#index');
 
     # Normal and secured routes to controller
-    # $r->get('/')->to('Example#welcome');
     # $r->get('/upload_image')->to(controller => 'UploadImageController', action => 'index');
     $r->get('/service')->to('Auth#login');
     my $auth = $r->under('/service')->to('Auth#authCheck');
