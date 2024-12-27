@@ -52,7 +52,14 @@ GetOptions(
 pod2usage(q(-verbose) => 1) if $help or !defined $action;
 
 # check if parameter is correct
-my @func_params = ('make_schema', 'deploy_statements', 'deploy', 'test');
+my @func_params = (
+    'make_schema', 
+    'deploy_statements', 
+    'deploy', 
+    'test',
+    'prepare_test_data',
+    'delete_test_data'
+    );
 my %correct_params = map { $_ => 1 } @func_params;
 
 unless (exists($correct_params{$action})){
@@ -121,22 +128,77 @@ if ($action eq 'test'){
             group_id => $u_id
             });
         $new_user->insert;
-	# p $new_user;
+	    # p $new_user;
         print "New group added done.\n`";
     }
-
-
     # SELECT
-
+    print "### 2. Search ### \n"; 
     # DELETE
-
+    $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+    print "Group: TEST, object\n";
+    p $ug;
+    $user = $schema->resultset("OmUsers")->search({ username => 'test1' })->first();
+    print "User: test1, object\n";
+    p $user;
+    print "Test accessor: OmGroups->users\n";
+    p $ug->users;
+    print "Test accessor: OmUsers->group\n";
+    p $user->group;
     # UPDSTE
 }
 
 # prepare test data
+if ($action eq 'prepare_test_data'){
+
+    print "Check test group: TEST\n"; 
+    my $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+    if ($ug) {
+        print "\tgroup: Test has been added before. Skip.\n";
+    } else {
+        print "\tAnd group now： TEST now...";
+        my $new_ug = $schema->resultset('OmGroups')->new({"name" => 'TEST'});
+        $new_ug->insert;
+        print "\tNew group added done.";
+    }
+    
+    print "Add test users, name: test1-200\n"; 
+   
+    foreach $item (1..200) {
+        
+        $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+        my $u_id = $ug->id;
+
+        my $user = $schema->resultset("OmUsers")->search({ username => "test$item" })->first();
+        if ($user) {
+            print "\tuser: test$item has been added before. Skip.\n";
+        } else {
+            print "\tAnd user: test$item now...\n";
+            my $new_user = $schema->resultset('OmUsers')->new({
+                username => "test$item",
+                password => "test$item",
+                name => "test$item",
+                email => "test$item@test.com",
+                group_id => $u_id
+                });
+            $new_user->insert;
+            # p $new_user;
+            print "\tNew user added done: test$item.\n`";
+        }
+    }
+}
 
 # delete test data
+if ($action eq 'delete_test_data'){
+    foreach $item (1..200) {
+        print "Delete users now: like 'test%'\n";
+        my $users = $schema->resultset("OmUsers")->search_like({ username => "test%" });
+        $users->delete;
+        print "Delete group: 'TEST'\n";        
+        $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+        my $u_id = $ug->delete;
 
+    }
+}
 
 
 
