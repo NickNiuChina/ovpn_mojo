@@ -35,6 +35,8 @@ sub loginValidate ($c) {
     $c->log->info("Username input: $user");
     $c->log->info("Pssword input: $password");
 
+
+
     # First check if the user exists
     if(exists $validUsers->{$user}){
         # Validating the password of the registered user
