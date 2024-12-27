@@ -163,7 +163,7 @@ if ($action eq 'prepare_test_data'){
     
     print "Add test users, name: test1-200\n"; 
    
-    foreach $item (1..200) {
+    foreach my $item (1..200) {
         
         $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
         my $u_id = $ug->id;
@@ -189,7 +189,7 @@ if ($action eq 'prepare_test_data'){
 
 # delete test data
 if ($action eq 'delete_test_data'){
-    foreach $item (1..200) {
+    foreach my $item (1..200) {
         print "Delete users now: like 'test%'\n";
         my $users = $schema->resultset("OmUsers")->search_like({ username => "test%" });
         $users->delete;
