@@ -1,4 +1,4 @@
-package Ovpn::Mojo::Controller::Base;
+package Ovpn::Mojo::Controller::Auth;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 
 # This action will render a template
@@ -11,7 +11,7 @@ sub login ($c) {
   
   $c->stash( error   => $c->flash('error') );
   $c->stash( message => $c->flash('message') );
-  $c->render(template => 'base/login');
+  $c->render(template => 'auth/login');
 }
 
 sub loginValidate ($c) {

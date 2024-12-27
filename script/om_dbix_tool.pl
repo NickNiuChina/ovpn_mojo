@@ -106,10 +106,10 @@ if ($action eq 'test'){
     if ($ug) {
         print "\tgroup: Test has been added before. Skip.\n";
     } else {
-        print "\tAnd group now： TEST now...";
+        print "\tAnd group now: TEST now...";
         my $new_ug = $schema->resultset('OmGroups')->new({"name" => 'TEST'});
         $new_ug->insert;
-        print "New group added done.";
+        print "\tNew group added done.";
     }
 
     print "Add test user, name: test1\n"; 
@@ -123,14 +123,14 @@ if ($action eq 'test'){
         print "\tAnd user: test1 now...\n";
         my $new_user = $schema->resultset('OmUsers')->new({
             username => 'test1',
-            password => 'test1',
+            password => password('test1'),
             name => 'name',
             email => 'test1@test1.com',
             group_id => $u_id
             });
         $new_user->insert;
 	    # p $new_user;
-        print "New group added done.\n`";
+        print "\tNew user added done.\n`";
     }
     # SELECT
     print "### 2. Search ### \n"; 

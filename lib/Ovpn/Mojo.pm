@@ -61,18 +61,18 @@ sub startup ($c) {
     # Router
     my $r = $c->routes;
     
-    $r->get('/')->to('Base#index');
+    $r->get('/')->to('Auth#index');
 
     # Normal and secured routes to controller
     # $r->get('/')->to('Example#welcome');
     # $r->get('/upload_image')->to(controller => 'UploadImageController', action => 'index');
-    $r->get('/service')->to('Base#login');
-    my $auth = $r->under('/service')->to('Base#authCheck');
-    $r->post('/service/login')->to('Base#loginValidate');
-    $r->any(['GET', 'POST'] => '/service/logout')->to('Base#logout');
+    $r->get('/service')->to('Auth#login');
+    my $auth = $r->under('/service')->to('Auth#authCheck');
+    $r->post('/service/login')->to('Auth#loginValidate');
+    $r->any(['GET', 'POST'] => '/service/logout')->to('Auth#logout');
     
 
-    $auth->get('/tips')->to('Base#showHelp');
+    $auth->get('/tips')->to('Auth#showHelp');
     $auth->get('/language')->to(controller => 'Views', action => 'setLanguage');    
     
     $auth->get('/clientstatus')->to('Views#clientsStatus');
