@@ -109,21 +109,20 @@ if ($action eq 'test'){
     my $u_id = $ug->id;
 
     my $user = $schema->resultset("OmUsers")->search({ username => 'test1' })->first();
-    
     if ($user) {
         print "\tuser: test1 has been added before. Skip.\n";
     } else {
         print "\tAnd user: test1 now...\n";
         my $new_user = $schema->resultset('OmUsers')->new({
-            username => 'tes1',
+            username => 'test1',
             password => 'test1',
             name => 'name',
             email => 'test1@test1.com',
             group_id => $u_id
             });
         $new_user->insert;
+	# p $new_user;
         print "New group added done.\n`";
-        p $new_user;
     }
 
 
