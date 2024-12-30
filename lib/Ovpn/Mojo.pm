@@ -4,6 +4,7 @@ use Mojo::Home;
 use Data::Printer;
 use Log::Log4perl;
 use File::Basename;
+use MojoX::Log::Log4perl;
 
 # This method will run once at server start
 sub startup ($c) {
