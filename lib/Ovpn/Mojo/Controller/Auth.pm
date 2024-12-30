@@ -1,6 +1,7 @@
 package Ovpn::Mojo::Controller::Auth;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Ovpn::Mojo::DB;
+use Ovpn::Mojo::Service::OmDBIx;
 
 # This action will render a template
 sub index ($c) {
