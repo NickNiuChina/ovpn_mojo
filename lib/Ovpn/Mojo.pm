@@ -28,7 +28,8 @@ sub startup ($c) {
     # use legacy log4perl
     my $ab_path = dirname(__FILE__);
     my $config_file = "$ab_path/../../log4perl.conf";
-    Log::Log4perl::init($config_file);
+    
+    $c->log( Log::Log4perl::init($config_file));
 
     # Cron task to update the expire date
     $c->plugin(
