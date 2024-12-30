@@ -2,6 +2,7 @@ package Ovpn::Mojo;
 use Mojo::Base 'Mojolicious', -signatures;
 use Mojo::Home;
 use Data::Printer;
+use Log::Log4perl;
 
 # This method will run once at server start
 sub startup ($c) {
@@ -13,16 +14,20 @@ sub startup ($c) {
     $home->detect;
     chomp(my $filename = $config->{log}->{filename});
 
-    # mojo log
-    my $logfile;
-    if ($config->{log}->{relative} eq 'yes') {
-        $logfile = $home->child($filename);
-    } else {
-        $logfile = $config->{log}->{filename};
-    }
-    $config->{log}->{log_full_filename} = $logfile;
-    $c->log( Mojo::Log->new( path => $logfile, level => 'trace' ) );
+    # use mojo log
+    # my $logfile;
+    # if ($config->{log}->{relative} eq 'yes') {
+    #     $logfile = $home->child($filename);
+    # } else {
+    #     $logfile = $config->{log}->{filename};
+    # }
+    # $config->{log}->{log_full_filename} = $logfile;
+    # $c->log( Mojo::Log->new( path => $logfile, level => 'trace' ) );
     
+    # use legacy log4perl
+    my $ab_path = dirname(__FILE__);
+    my $config_file = "$ab_path/../../log4perl.conf";
+    Log::Log4perl::init($config_file);
 
     # Cron task to update the expire date
     $c->plugin(

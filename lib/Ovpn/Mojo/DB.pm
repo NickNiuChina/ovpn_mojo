@@ -21,7 +21,8 @@ sub get_config {
     my $config_file = "$ab_path/../../../ovpn-mojo.yml";
     my $config = YAML::LoadFile($config_file);
     $c->log->info("config file: $config_file");
-    $c->log->info("config detail: " . np $config->{db} );
+    $c->log->debug("config detail: ");
+    $c->log->debug(np $config->{db});
 
     return $config->{db};
 }

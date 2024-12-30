@@ -13,3 +13,6 @@ DBIx::Class
 DBIx::Class::Schema::Loader
 # this is for $schema->deploy or deployment_statements
 SQL::Translator
+
+# log
+Log::Log4perl
