@@ -24,3 +24,4 @@ sub connect {
     return Ovpn::Mojo::DB->connect($c);
 }
 
+1;
