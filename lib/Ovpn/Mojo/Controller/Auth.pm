@@ -9,7 +9,7 @@ sub index ($c) {
 }
 
 sub login ($c) {
-    my $dbh = Ovpn::Mojo::DB->connect();
+    my $dbh = Ovpn::Mojo::DB->connect($c);
     $c->stash( error   => $c->flash('error') );
     $c->stash( message => $c->flash('message') );
     $c->render(template => 'auth/login');

@@ -5,6 +5,7 @@ use DBI;
 use Data::Printer;
 use YAML;
 use FindBin;
+use File::Basename;
 
 #
 # DB interface
@@ -14,10 +15,15 @@ our $dbh;
 our $c;
 
 sub get_config {
+    my $ab_path = dirname(__FILE__);
     $c->log->info("Get the YAML config file.");
-    my $config_file = YAML::LoadFile("$FindBin::Bin/../../../ovpn-mojo.yml");
+    $c->log->info("ab_path: $ab_path");
+    my $config_file = "$ab_path/../../../ovpn-mojo.yml";
+    my $config = YAML::LoadFile($config_file);
     $c->log->info("config file: $config_file");
-    return $config_file->db;
+    $c->log->info("config detail: " . np $config->{db} );
+
+    return $config->{db};
 }
 
 sub connect {   
@@ -29,13 +35,13 @@ sub connect {
     $c->log->info("Trying path the YAML config file.");
     my $config = $self->get_config;
     # p ($config);
-    my $driver   = $config->{db}->{driver};
-    my $database = $config->{db}->{dbname};
-    my $host = $config->{db}->{host};
-    my $port = $config->{db}->{port};
+    my $driver   = $config->{driver};
+    my $database = $config->{dbname};
+    my $host = $config->{host};
+    my $port = $config->{port};
     my $dsn = "DBI:$driver:dbname=$database;host=$host;port=$port";
-    my $userid = $config->{db}->{uname};
-    my $password = $config->{db}->{passwd};
+    my $userid = $config->{uname};
+    my $password = $config->{passwd};
     
     if ($dbh) {   
         $c->log->warn('Connect when already connected');  
