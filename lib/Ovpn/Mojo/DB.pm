@@ -6,6 +6,7 @@ use Data::Printer;
 use YAML;
 use FindBin;
 use File::Basename;
+use Log::Log4perl;
 
 #
 # DB interface
@@ -13,16 +14,17 @@ use File::Basename;
 
 our $dbh;
 our $c;
+our $log = Log::Log4perl->get_logger('');
 
 sub get_config {
     my $ab_path = dirname(__FILE__);
-    $c->log->info("Get the YAML config file.");
-    $c->log->info("ab_path: $ab_path");
+    $log->info("Get the YAML config file.");
+    $log->info("ab_path: $ab_path");
     my $config_file = "$ab_path/../../../ovpn-mojo.yml";
     my $config = YAML::LoadFile($config_file);
-    $c->log->info("config file: $config_file");
-    $c->log->debug("config detail: ");
-    $c->log->debug(np $config->{db});
+    $log->info("config file: $config_file");
+    $log->debug("config detail: ");
+    $log->debug(np $config->{db});
 
     return $config->{db};
 }
