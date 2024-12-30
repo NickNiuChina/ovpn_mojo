@@ -13,7 +13,6 @@ use Log::Log4perl;
 # 
 
 our $dbh;
-# our $c;
 our $log = Log::Log4perl->get_logger('');
 
 sub get_config {

@@ -76,7 +76,7 @@ sub startup ($c) {
     # $r->get('/upload_image')->to(controller => 'UploadImageController', action => 'index');
     $r->get('/service')->to('Auth#login')->name("login");
     my $auth = $r->under('/service')->to('Auth#auth_check');
-    $r->post('/service/login')->to('Auth#login_alidate')->name("login_validate");
+    $r->post('/service/login')->to('Auth#login_validate')->name("login_validate");
     $r->any(['GET', 'POST'] => '/service/logout')->to('Auth#logout')->name("logout");
     
 
