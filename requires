@@ -16,3 +16,4 @@ SQL::Translator
 
 # log
 Log::Log4perl
+Log::Dispatch::FileRotate
