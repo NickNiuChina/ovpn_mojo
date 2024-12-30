@@ -13,6 +13,7 @@ use Log::Log4perl;
 # 
 
 our $dbh;
+our $schema;
 our $log = Log::Log4perl->get_logger('');
 
 sub get_config {
@@ -44,6 +45,45 @@ sub connect {
     my $userid = $config->{uname};
     my $password = $config->{passwd};
     
+    if ($dbh) {   
+        $log->warn('Connect when already connected');  
+        $log->info("Clean the old connection info.");   
+        $dbh = undef;  
+    } 
+
+    my $tries = 0;
+    do {
+        eval {
+            $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
+        };
+        if ((!$dbh) && (++$tries < 5)) {
+            $log->fatal('connect failed: %s', $DBI::errstr ? $DBI::errstr : 'unknown');
+            $log->info('will retry in 10');
+            sleep 5;
+        }
+    } while (!$dbh && ($tries < 5));
+
+    $log->info("Giving up on connect") if !$dbh;
+    $log->info("DB interface done.");  
+    return $dbh;   
+}
+
+sub get_schema {   
+
+    my $self = shift;
+
+    $log->info("Running to DB interface.");
+    $log->info("Trying path the YAML config file.");
+    my $config = $self->get_config;
+    # p ($config);
+    my $driver   = $config->{driver};
+    my $database = $config->{dbname};
+    my $host = $config->{host};
+    my $port = $config->{port};
+    my $dsn = "DBI:$driver:dbname=$database;host=$host;port=$port";
+    my $userid = $config->{uname};
+    my $password = $config->{passwd};
+    Ovpn::Mojo::Schema->connect('dbi:Pg:database=ovpn_mojo', 'postgres', 'postgres');
     if ($dbh) {   
         $log->warn('Connect when already connected');  
         $log->info("Clean the old connection info.");   
