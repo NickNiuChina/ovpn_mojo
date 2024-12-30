@@ -3,19 +3,31 @@ use strict;
 use warnings;
 use DBI;
 use Data::Printer;
+use YAML;
+use FindBin;
+
 #
 # DB interface
 # 
 
 our $dbh;
+our $c;
+
+sub get_config {
+    $c->log->info("Get the YAML config file.");
+    my $config_file = YAML::LoadFile("$FindBin::Bin/../../../ovpn-mojo.yml");
+    $c->log->info("config file: $config_file");
+    return $config_file->db;
+}
 
 sub connect {   
 
-    my $class = shift;
+    my $self = shift;
     # this is the mojolicious crontroller object, contains the db connection info
-    my $c = shift;
+    $c = shift;
     $c->log->info("Running to DB interface.");
-    my $config = $c->config;
+    $c->log->info("Trying path the YAML config file.");
+    my $config = $self->get_config;
     # p ($config);
     my $driver   = $config->{db}->{driver};
     my $database = $config->{db}->{dbname};

@@ -10,7 +10,9 @@ our $dbh;
 
 sub login {
     my $class = shift;
-    $c = shift;
+    my $c = shift;
+    
+    return $result;
 }
 
 sub connect {

@@ -5,7 +5,7 @@ use Ovpn::Mojo::DB;
 use DBI;
 
 # change language
-sub setLanguage ($self) {
+sub set_language ($self) {
     # p $self->config->{users};
     # $self->languages('en');
     # p $self->languages;

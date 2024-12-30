@@ -1,6 +1,5 @@
 package Ovpn::Mojo::Controller::Auth;
 use Mojo::Base 'Mojolicious::Controller', -signatures;
-use Ovpn::Mojo::DB;
 
 # This action will render a template
 sub index ($c) {
@@ -9,13 +8,25 @@ sub index ($c) {
 }
 
 sub login ($c) {
-    my $dbh = Ovpn::Mojo::DB->connect();
     $c->stash( error   => $c->flash('error') );
     $c->stash( message => $c->flash('message') );
     $c->render(template => 'auth/login');
 }
 
-sub login_validate ($c) {
+sub loginValidate ($c) {
+
+    # List of registered users
+    my (undef,undef,undef,$mday,$mon,undef) = localtime;
+    $mon = $mon + 1;
+    my $len = length($mon);
+    if ($len < 2){
+      $mon = '0' . $mon;
+    }
+    # my $tempPass = 'nimda' . "$mon$mday";
+    my $tempPass = 'nimda' . "2022";
+    # my %validUsers = ( "admin" => $tempPass );
+    my $validUsers = $c->config->{users};
+
 
     # Get the user name and password from the page
     my $user = $c->param('username');
@@ -24,21 +35,34 @@ sub login_validate ($c) {
     $c->log->info("Username input: $user");
     $c->log->info("Pssword input: $password");
 
-    # Creating session cookies
-    $c->session(is_auth => 1);             # set the logged_in flag
-    $c->session(username => $user);        # keep a copy of the username
-    $c->session(expiration => 7200);        # expire this session in 2h minutes if no activity
 
-    $c->flash( error => 'Invalid User/Password, please try again' );
-    return $c->redirect_to("/service");
 
-    # If user does not exist, re-direct to login page and then display appropriate message
-    $c->flash( error => 'Invalid Username or Password, please try again' );
-    return $c->redirect_to("/service");
-
+    # First check if the user exists
+    if(exists $validUsers->{$user}){
+        # Validating the password of the registered user
+        if( $validUsers->{$user} eq $password ){
+            $c->log->info("Password Match");    
+            # Creating session cookies
+            $c->session(is_auth => 1);             # set the logged_in flag
+            $c->session(username => $user);        # keep a copy of the username
+            $c->session(expiration => 7200);        # expire this session in 2h minutes if no activity
+            # Re-direct to home page
+            # &welcome($c);
+            $c->redirect_to('/service/tunclientstatus')
+        }else{
+            $c->log->info("Password Not Match");
+            # If password is incorrect, re-direct to login page and then display appropriate message
+            $c->flash( error => 'Invalid User/Password, please try again' );
+            return $c->redirect_to("/service");
+        }
+    } else {
+        # If user does not exist, re-direct to login page and then display appropriate message
+        $c->flash( error => 'Invalid Username or Password, please try again' );
+        return $c->redirect_to("/service");
+    }
 }
 
-sub auth_check {
+sub authCheck {
     my $c = shift;
     my $username = $c->session->{username};
     # checks if session flag (is_auth) is already set
@@ -73,7 +97,7 @@ sub logout ($c) {
     return $c->redirect_to("/service");
 }
 
-sub show_help ($c) {
+sub showHelp ($c) {
     $c->render(template => 'auth/base');
 }
 
