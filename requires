@@ -17,3 +17,4 @@ SQL::Translator
 # log
 Log::Log4perl
 Log::Dispatch::FileRotate
+MojoX::Log::Log4perl
