@@ -21,8 +21,15 @@ sub login_validate ($c) {
     my $user = $c->param('username');
     my $password = $c->param('password');
     # debug info
-    $c->log->info("Username input: $user");
-    $c->log->info("Pssword input: $password");
+    $c->log->debug("Trying login");
+    $c->log->debug("Username input: $user");
+    $c->log->debug("Pssword input: $password");
+
+    my $result = Ovpn::Mojo::Service::OmDBIx->login($user, $password);
+
+    # If user does not exist, re-direct to login page and then display appropriate message
+    $c->flash( error => 'Invalid Username or Password, please try again' );
+    return $c->redirect_to("/service");    
 
     # Creating session cookies
     $c->session(is_auth => 1);             # set the logged_in flag
