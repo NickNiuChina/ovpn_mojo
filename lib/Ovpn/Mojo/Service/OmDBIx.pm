@@ -13,15 +13,14 @@ our $dbh;
 
 sub login {
     my $class = shift;
-    my ($user, $passwor) = @_;
+    my ($user, $password) = @_;
     $log->debug("Got login data: $user: $password\n");
-    return $result;
+    return;
 }
 
 sub connect {
     my $class = shift;
-    $c = shift;
-    return Ovpn::Mojo::DB->connect($c);
+    return Ovpn::Mojo::DB->connect();
 }
 
 1;
