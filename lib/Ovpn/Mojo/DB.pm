@@ -13,7 +13,7 @@ use Log::Log4perl;
 # 
 
 our $dbh;
-our $c;
+# our $c;
 our $log = Log::Log4perl->get_logger('');
 
 sub get_config {
@@ -32,10 +32,9 @@ sub get_config {
 sub connect {   
 
     my $self = shift;
-    # this is the mojolicious crontroller object, contains the db connection info
-    $c = shift;
-    $c->log->info("Running to DB interface.");
-    $c->log->info("Trying path the YAML config file.");
+
+    $log->info("Running to DB interface.");
+    $log->info("Trying path the YAML config file.");
     my $config = $self->get_config;
     # p ($config);
     my $driver   = $config->{driver};
@@ -47,8 +46,8 @@ sub connect {
     my $password = $config->{passwd};
     
     if ($dbh) {   
-        $c->log->warn('Connect when already connected');  
-        $c->log->info("Clean the old connection info.");   
+        $log->warn('Connect when already connected');  
+        $log->info("Clean the old connection info.");   
         $dbh = undef;  
     } 
 
@@ -58,20 +57,19 @@ sub connect {
             $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
         };
         if ((!$dbh) && (++$tries < 5)) {
-            $c->log->fatal('connect failed: %s', $DBI::errstr ? $DBI::errstr : 'unknown');
-            $c->log->info('will retry in 10');
+            $log->fatal('connect failed: %s', $DBI::errstr ? $DBI::errstr : 'unknown');
+            $log->info('will retry in 10');
             sleep 5;
         }
     } while (!$dbh && ($tries < 5));
 
-    $c->log->info("Giving up on connect") if !$dbh;
-    $c->log->info("DB interface done.");  
+    $log->info("Giving up on connect") if !$dbh;
+    $log->info("DB interface done.");  
     return $dbh;   
 }
 
 sub disconnect {   
     my $class = shift;
-    my $c = shift;
 
     if (!$dbh) {   
         return 0;   
