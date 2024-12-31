@@ -2,6 +2,7 @@ package Ovpn::Mojo::Service::OmDBIx;
 use strict;
 use warnings;
 
+use Data::Printer;
 use Ovpn::Mojo::DB;
 use Ovpn::Mojo::Schema;
 
@@ -14,9 +15,12 @@ our $dbh;
 sub login {
     my $class = shift;
     my ($user, $password) = @_;
+    chomp $user;
+    chomp $password;
     $log->debug("Got login data: $user: $password\n");
-    my $schema = Ovpn::Mojo::Schema->connect('dbi:Pg:database=ovpn_mojo', 'postgres', 'postgres');
-    $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
+    my $schema = Ovpn::Mojo::Schema->get_schema();
+    $schema->resultset('OmUsers')->search({ username => $user })->first();
+    $log->debug(np $schema);
     return;
 }
 

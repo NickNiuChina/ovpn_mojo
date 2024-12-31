@@ -34,7 +34,7 @@ sub connect {
     my $self = shift;
 
     $log->info("Running to DB interface.");
-    $log->info("Trying path the YAML config file.");
+    $log->info("Trying parse the YAML config file.");
     my $config = $self->get_config;
     # p ($config);
     my $driver   = $config->{driver};
@@ -73,7 +73,7 @@ sub get_schema {
     my $self = shift;
 
     $log->info("Running to DB interface.");
-    $log->info("Trying path the YAML config file.");
+    $log->info("Trying parse the YAML config file.");
     my $config = $self->get_config;
     # p ($config);
     my $driver   = $config->{driver};
@@ -81,30 +81,30 @@ sub get_schema {
     my $host = $config->{host};
     my $port = $config->{port};
     my $dsn = "DBI:$driver:dbname=$database;host=$host;port=$port";
-    my $userid = $config->{uname};
+    my $uname = $config->{uname};
     my $password = $config->{passwd};
-    Ovpn::Mojo::Schema->connect('dbi:Pg:database=ovpn_mojo', 'postgres', 'postgres');
-    if ($dbh) {   
+    
+    if ($schema) {   
         $log->warn('Connect when already connected');  
-        $log->info("Clean the old connection info.");   
-        $dbh = undef;  
+        $log->info("Clean the old schema connection info.");   
+        $schema = undef;  
     } 
 
     my $tries = 0;
     do {
         eval {
-            $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) or die $DBI::errstr;
+            $schema = Ovpn::Mojo::Schema->connect("$dsn", "$uname", "$password") or die $DBI::errstr;
         };
-        if ((!$dbh) && (++$tries < 5)) {
+        if ((!$schema) && (++$tries < 5)) {
             $log->fatal('connect failed: %s', $DBI::errstr ? $DBI::errstr : 'unknown');
             $log->info('will retry in 10');
             sleep 5;
         }
-    } while (!$dbh && ($tries < 5));
+    } while (!$schema && ($tries < 5));
 
-    $log->info("Giving up on connect") if !$dbh;
+    $log->info("Giving up on connect") if !$schema;
     $log->info("DB interface done.");  
-    return $dbh;   
+    return $schema;   
 }
 
 sub disconnect {   

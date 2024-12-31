@@ -5,7 +5,6 @@ Mojolicious::Plugin::Cron
 Mojolicious::Plugin::I18N
 # Mojolicious::Plugin::RenderFile
 
-
 # ORM
 DBIx::Class
 
@@ -18,3 +17,6 @@ SQL::Translator
 Log::Log4perl
 Log::Dispatch::FileRotate
 MojoX::Log::Log4perl
+
+# password crypt and check
+Crypt::Password;
