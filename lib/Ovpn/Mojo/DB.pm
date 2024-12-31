@@ -7,6 +7,7 @@ use YAML;
 use FindBin;
 use File::Basename;
 use Log::Log4perl;
+use Ovpn::Mojo::Schema;
 
 #
 # DB interface
@@ -96,7 +97,7 @@ sub get_schema {
             $schema = Ovpn::Mojo::Schema->connect("$dsn", "$uname", "$password") or die $DBI::errstr;
         };
         if ((!$schema) && (++$tries < 5)) {
-            $log->fatal('connect failed: %s', $DBI::errstr ? $DBI::errstr : 'unknown');
+            $log->fatal('connect failed: %s: ', $@ ? $@ : 'unknown');
             $log->info('will retry in 10');
             sleep 5;
         }
