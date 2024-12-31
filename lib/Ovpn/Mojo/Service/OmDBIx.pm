@@ -14,7 +14,7 @@ our $dbh;
 sub login {
     my $class = shift;
     my ($username, $password) = @_;
-    chomp $user;
+    chomp $username;
     chomp $password;
     $log->debug("Got login data: $username: $password\n");
     my $schema = Ovpn::Mojo::DB->get_schema();
