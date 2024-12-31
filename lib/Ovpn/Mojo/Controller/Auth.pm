@@ -26,7 +26,7 @@ sub login_validate ($c) {
     $c->log->debug("Username input: $username");
     $c->log->debug("Pssword input: $password");
 
-    my $user = Ovpn::Mojo::Service::OmDBIx->login($user, $password);
+    my $user = Ovpn::Mojo::Service::OmDBIx->login($username, $password);
 
     if ($user) {
         # Creating session
