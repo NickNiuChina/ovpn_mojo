@@ -13,13 +13,14 @@ our $dbh;
 
 sub login {
     my $class = shift;
-    my ($user, $password) = @_;
+    my ($username, $password) = @_;
     chomp $user;
     chomp $password;
-    $log->debug("Got login data: $user: $password\n");
+    $log->debug("Got login data: $username: $password\n");
     my $schema = Ovpn::Mojo::DB->get_schema();
-    $schema->resultset('OmUsers')->search({ username => $user })->first();
-    $log->debug(np $schema);
+    my $user = $schema->resultset('OmUsers')->search({ username => $user })->first();
+    $log->trace("np print \$user object:");
+    $log->trace(np $user);
     return;
 }
 
