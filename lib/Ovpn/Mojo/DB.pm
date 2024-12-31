@@ -25,7 +25,7 @@ sub get_config {
     my $config = YAML::LoadFile($config_file);
     $log->info("config file: $config_file");
     $log->debug("config detail: ");
-    $log->debug(np $config->{db});
+    $log->debug("\n" . np $config->{db});
 
     return $config->{db};
 }
