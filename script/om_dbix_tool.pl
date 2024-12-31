@@ -68,7 +68,7 @@ unless (exists($correct_params{$action})){
         pod2usage(q(-verbose) => 1);
 }
 
-my $schema = Ovpn::Mojo::Schema->connect('dbi:Pg:database=ovpn_mojo', 'postgres', 'postgres');
+my $schema = Ovpn::Mojo::Schema->connect('dbi:Pg:database=ovpn_mojo;host=127.0.0.1;port=5432', 'postgres', 'postgres');
 
 # make_schema
 if ($action eq 'make_schema') {
