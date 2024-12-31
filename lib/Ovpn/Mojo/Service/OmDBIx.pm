@@ -18,7 +18,7 @@ sub login {
     chomp $password;
     $log->debug("Got login data: $username: $password\n");
     my $schema = Ovpn::Mojo::DB->get_schema();
-    my $user = $schema->resultset('OmUsers')->search({ username => $user })->first();
+    my $user = $schema->resultset('OmUsers')->search({ username => $username })->first();
     $log->trace("np print \$user object:");
     $log->trace(np $user);
     return;
