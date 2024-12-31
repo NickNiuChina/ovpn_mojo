@@ -58,7 +58,7 @@ sub startup ($c) {
     );
 
     $c->plugin (I18N => {
-        namespace => 'Mgmt::Service::I18N',
+        namespace => 'Ovpn::Mojo::I18N',
         support_url_langs => [qw(en zh)],
         # no_header_detect => 1
         }

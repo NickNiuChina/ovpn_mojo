@@ -80,7 +80,7 @@ sub get_schema {
     my $database = $config->{dbname};
     my $host = $config->{host};
     my $port = $config->{port};
-    my $dsn = "DBI:$driver:dbname=$database;host=$host;port=$port";
+    my $dsn = "dbi:$driver:database=$database;host=$host;port=$port";
     my $uname = $config->{uname};
     my $password = $config->{passwd};
     
