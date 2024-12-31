@@ -6,7 +6,7 @@
   <base href="http://127.0.0.1:3000">
   </head>
   <title><%= content 'title' %></title>
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
 
   <%# Google Font: Source Sans Pro %>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
