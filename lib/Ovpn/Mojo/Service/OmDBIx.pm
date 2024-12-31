@@ -1,6 +1,7 @@
 package Ovpn::Mojo::Service::OmDBIx;
 use strict;
 use warnings;
+use Crypt::Password; 
 
 use Data::Printer;
 use Ovpn::Mojo::DB;
@@ -21,7 +22,11 @@ sub login {
     my $user = $schema->resultset('OmUsers')->search({ username => $username })->first();
     $log->trace("np print \$user object:");
     $log->trace(np $user);
-    return;
+    if ($user && check_password($user->password, $password)) {
+        return $user;
+    } else {
+        return;
+    }
 }
 
 sub connect {

@@ -134,7 +134,7 @@ sub startup ($c) {
     $auth->get('/tungenericcerted/dl/#filename')->to('Views#tunGenericCertedClientsDownload');
     
     # Secret info pages
-    $auth->get('/system/session')->to('Views#sysSession');
+    $auth->get('/system/session')->to('Views#sysSession')->name('session');
     $auth->get('/system/appConfig')->to('Views#sysAppConfig');
     $auth->get('/system/appAttr')->to('Views#sysAppAttr');
 
