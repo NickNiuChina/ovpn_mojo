@@ -4,7 +4,6 @@ use warnings;
 
 use Data::Printer;
 use Ovpn::Mojo::DB;
-use Ovpn::Mojo::Schema;
 
 our $log = Log::Log4perl->get_logger('');
 
@@ -18,7 +17,7 @@ sub login {
     chomp $user;
     chomp $password;
     $log->debug("Got login data: $user: $password\n");
-    my $schema = Ovpn::Mojo::Schema->get_schema();
+    my $schema = Ovpn::Mojo::DB->get_schema();
     $schema->resultset('OmUsers')->search({ username => $user })->first();
     $log->debug(np $schema);
     return;
