@@ -37,6 +37,7 @@ sub startup ($c) {
     $c->plugin(
         Cron => '0 1 * * *' => sub {
             my $tms = shift;
+            my $app = shift;
             my $re;
             my $result;
             $re =`echo "Cron: update clients expire date." >> /var/log/mgmt.log`;
