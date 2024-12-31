@@ -135,13 +135,12 @@ sub startup ($c) {
     
     # Secrct info pages higher privis required
     $auth->get('/system/session')->to('Views#sys_session')->name('session');
-    $auth->get('/system/appConfig')->to('Views#sys_app_config');
-    $auth->get('/system/appAttr')->to('Views#sys_app_attr');
+    $auth->get('/system/appConfig')->to('Views#sys_app_config')->name('app_config');
+    $auth->get('/system/appAttr')->to('Views#sys_app_attr')->name('app_attr');
 
     ###### Other Urls test ########
-    # $r->get('/bar')->to('Foo#bar');
-    $r->get('/test')->to(controller => 'Test', action => 'test');
-    $r->get('/welcome')->to('Example#welcome');
+    $r->get('/test')->to(controller => 'Test', action => 'test')->name('test');
+    $r->get('/welcome')->to('Example#welcome')->name('welcome');
 
 }
 

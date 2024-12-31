@@ -19,17 +19,17 @@ sub login ($c) {
 sub login_validate ($c) {
 
     # Get the user name and password from the page
-    my $user = $c->param('username');
+    my $username = $c->param('username');
     my $password = $c->param('password');
     # debug info
     $c->log->debug("Trying login");
-    $c->log->debug("Username input: $user");
+    $c->log->debug("Username input: $username");
     $c->log->debug("Pssword input: $password");
 
     my $user = Ovpn::Mojo::Service::OmDBIx->login($user, $password);
 
     if ($user) {
-        # Creating session cookies
+        # Creating session
         $c->session(is_auth => 1);             # set the logged_in flag
         $c->session(username => $user->username);
         $c->session(group => $user->group->name);
