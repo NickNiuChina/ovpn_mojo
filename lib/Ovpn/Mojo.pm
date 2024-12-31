@@ -133,10 +133,10 @@ sub startup ($c) {
     $auth->post('/tungenericcerted/download')->to('Views#tunGenericCertedClientsDownload');
     $auth->get('/tungenericcerted/dl/#filename')->to('Views#tunGenericCertedClientsDownload');
     
-    # Secret info pages
-    $auth->get('/system/session')->to('Views#sysSession')->name('session');
-    $auth->get('/system/appConfig')->to('Views#sysAppConfig');
-    $auth->get('/system/appAttr')->to('Views#sysAppAttr');
+    # Secrct info pages higher privis required
+    $auth->get('/system/session')->to('Views#sys_session')->name('session');
+    $auth->get('/system/appConfig')->to('Views#sys_app_config');
+    $auth->get('/system/appAttr')->to('Views#sys_app_attr');
 
     ###### Other Urls test ########
     # $r->get('/bar')->to('Foo#bar');

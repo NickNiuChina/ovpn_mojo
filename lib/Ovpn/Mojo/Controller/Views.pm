@@ -924,19 +924,20 @@ sub tunGenericCertedClientsDownload ($c) {
 
 # Secret page views
 
-sub sysSession ($self) {
+sub sys_session ($self) {
     # p $self->session;
     my $session = $self->session;
     $self->render(json => $session);
 }
 
-sub sysAppConfig ($self) {
+sub sys_app_config ($self) {
     # p $self->config;
     my $config = $self->config;
+    $config->{db}->{passwd} = 'Hidden';
     $self->render(json => $config);
 }
 
-sub sysAppAttr ($self) {
+sub sys_app_attr ($self) {
     # p $self;
     $self->render(json => np $self);
 }
