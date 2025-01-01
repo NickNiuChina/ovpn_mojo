@@ -64,18 +64,7 @@
                 </div>
             </form>
            
-            % if ( $error ) {
-                <div class="alert alert-danger col-md-12 mx-auto">
-                    <p> <%= $error %> </p>
-                </div>
-            % }
-
-            % if ( $message ) {
-                <div class="alert alert-success col-md-12 mx-auto">
-                    <p> <%= $message %> </p>
-                </div>
-            % }
-
+            <%= include '_flash'%>
             </div>
         </div>
     </div>
