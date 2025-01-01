@@ -1,5 +1,4 @@
-% use Time::Piece;
-% my $now = localtime;
+<% use Time::Piece; %>
 <!DOCTYPE html>
 <html lang="en">
 
