@@ -187,11 +187,12 @@
 </div>
 {% endblock %}
 
-{% block page_js %}
-{# dashboard refresh resources #}
-<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard_refresh.js') }}"></script>
-<script>
-	window.csrftoken="{{ csrf_token }}";
-</script>
-{% endblock %}
+
+<% content_for page-js => begin %>
+  	<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard_refresh.js') }}"></script>
+	<script>
+		window.csrftoken="{{ csrf_token }}";
+	</script>
+<% end %>
+
 

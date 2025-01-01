@@ -18,6 +18,7 @@
   <%= include '_aside-nav'%>
 
   <%= content %>
+  <%= content 'page-js' %>
 
   <%= include '_footer'%>
   

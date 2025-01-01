@@ -1,29 +1,13 @@
-          {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                  {% for message in messages %}
-                  <div class="text-danger">{{ message }}</div>
-                  {% endfor %}
-              {% endif %}
-          {% endwith %}
-          
-     	{% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          <ul class=flashes>
-          {% for category, message in messages %}
-          <div class="text-{{ category }}">{{ message }}</div>
-          {% endfor %}
-          </ul>
-        {% endif %}
-        {% endwith %}
-
             <% if ( $error ) { %>
                 <div class="alert alert-danger col-md-12 mx-auto">
                     <p> <%= $error %> </p>
                 </div>
+                <div class="text-danger"><%= $error %></div>
             <% } %>
 
             <% if ( $message ) { %>
                 <div class="alert alert-success col-md-12 mx-auto">
                     <p> <%= $message %> </p>
                 </div>
+                <div class="text-success"><%= $message %></div>
             <% } %>
