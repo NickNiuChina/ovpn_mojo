@@ -34,7 +34,7 @@ sub login_validate ($c) {
         $c->session(username => $user->username);
         $c->session(group => $user->group->name);
         $c->session(expiration => 7200);        # expire this session in 2h minutes if no activity
-        $c->redirect_to('index')
+        $c->redirect_to('/mojo/clientstatus')
     } else {
         $c->flash( error => 'Invalid User/Password, please try again' );
         return $c->redirect_to("login");
