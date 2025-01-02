@@ -1,13 +1,14 @@
 [Unit]
-Description=Carel Mgmt Mojo application
+Description=Ovpn Mojo application
 After=network-online.target
 
 [Service]
 Type=forking
 User=root
-PIDFile=/run/mgmt-hypnotoad.pid
+PIDFile=/run/ovpn-mojo-hypnotoad.pid
 ExecStart=/usr/local/bin/hypnotoad /opt/ovpn_mojo/script/ovpn_mojo
 ExecReload=/usr/local/bin/hypnotoad /opt/ovpn_mojo/script/ovpn_mojo
+
 KillMode=process
 
 # hypnotoad run in background has no log
