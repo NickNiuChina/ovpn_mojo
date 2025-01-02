@@ -76,7 +76,7 @@ sub startup ($c) {
     # Normal and secured routes to controller
     # $r->get('/upload_image')->to(controller => 'UploadImageController', action => 'index');
     $r->get('/mojo')->to('Auth#login')->name("login");
-    my $auth = $r->under('/mojo')->to('Auth#auth_check');
+    my $auth = $r->under('mojo')->to('Auth#auth_check');
     $r->post('/mojo/login')->to('Auth#login_validate')->name("login_validate");
     $r->any(['GET', 'POST'] => '/mojo/logout')->to('Auth#logout')->name("logout");
     

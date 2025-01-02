@@ -6,7 +6,7 @@ use Ovpn::Mojo::Service::OmDBIx;
 # This action will render a template
 sub index ($c) {
     # Render template "somedir/fn.html.ep" with message
-    return $c->redirect_to('service');
+    return $c->redirect_to('mojo');
 }
 
 sub login ($c) {
@@ -66,14 +66,14 @@ sub auth_check {
     # $c->stash( message => $c->flash('message') );
     # $c->render(template => 'base/login');
     # return;
-    $c->redirect_to('/service');
+    $c->redirect_to('login');
     return undef;  
 }
 
 sub logout ($c) {
     # Remove session and direct to logout page
     $c->session(expires => 1);  #Kill the Session
-    return $c->redirect_to("/service");
+    return $c->redirect_to("login");
 }
 
 sub show_help ($c) {

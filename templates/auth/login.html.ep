@@ -30,7 +30,7 @@
             <div class="card-body">
             <p class="login-box-msg"><%= l 'Sign in to start your session' %></p>
 
-            <form action="service/login" method="post">
+            <form action="mojo/login" method="post">
                 <div class="input-group mb-3">
                 <input type="text" class="form-control" name="username" placeholder=<%= l 'Username' %> >
                 <div class="input-group-append">
