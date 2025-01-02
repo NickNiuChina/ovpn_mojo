@@ -1,18 +1,19 @@
-{% extends 'base.html' %}
+  % layout 'default';
 
-{% block title %}Dashboard{% endblock %}
-{% block content %}
+% content_for title => begin
+  Dashboard
+% end
 
-{# Content Wrapper. Contains page content #}
+<%# Content Wrapper. Contains page content #>
 <div class="content-wrapper">
 
-	{# Content Header (Page header) #}
+	<%# Content Header (Page header) %>
 	<div class="content-header">
 		<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0">Welcome <b>{{ session["username"] or "????" }}</b>！</h1>
-			</div><!-- /.col -->
+				<h1 class="m-0">Welcome <b><%= session->{username} || session->{name} || 'user?' %></b>！</h1>
+			</div>
 			<div class="col-sm-6">
 			<ol class="breadcrumb float-sm-right">
 				<li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -22,21 +23,13 @@
 		</div>
 		</div>
 	</div>
-	{#  content-header END #}
+	<%#  content-header END %>
 
-	{% if messages %}
-		<ul class="flashes">
-		{% for message in messages %}
-			<div class="text-{{ message.tags }}">
-				{{ message }}
-			</div>
-		{% endfor %}
-		</ul>
-	{% endif %}
+	<%= include '_flash'%>
 
 	<section class="content">
 		<div class="container-fluid">
-		<div class=""> {# class="placeholders" #}
+		<div class=""> <%# class="placeholders" %>
 		  	<div class="row">
 
 			  <div class="col-lg-3 col-6">
@@ -45,10 +38,10 @@
 					<h3>OS </h3>
 					<div class="info-box-content">
 					  <span class="info-box-text">
-						<span class="info-box-number2" id="db_system_type">{{ system_info.system_type }}</span>
+						<span class="info-box-number2" id="db_system_type"><%= $system_info->{'system_type'} %></span>
 					  </span><br>
 					  <span class="info-box-text">
-						<span class="info-box-number2" id="db_system_version"> {{ system_info.system_version }} </span>
+						<span class="info-box-number2" id="db_system_version"> <%= $system_info->{'system_version'} %> </span>
 					  </span>
 					</div>
 				  </div>
@@ -65,13 +58,13 @@
 					<div class="info-box-content">
 					  <span class="info-box-text">
 						CPU count: <span class="info-box-number2" id="db_cpu_cores">
-						{{system_info.cpu_cores}}
+						<%= $system_info->{cpu_cores} %>
 						</span>
 					  </span><br>
 					  <span class="info-box-number">
-						1m: <b  id="db_load_avg0">{{system_info.load_avg.0 | round(2)}}</b> &nbsp; &nbsp;
-						5m: <b id="db_load_avg1">{{ system_info.load_avg.1 | round(2) }}</b> &nbsp; &nbsp;
-						15m: <b id="db_load_avg2">{{ system_info.load_avg.2 | round(2) }}</b><br/>
+						1m: <b  id="db_load_avg0">{{system_info.load_avg.0}}</b> &nbsp; &nbsp;
+						5m: <b id="db_load_avg1">{{ system_info.load_avg.1}}</b> &nbsp; &nbsp;
+						15m: <b id="db_load_avg2">{{ system_info.load_avg.2}}</b><br/>
 					  </span>
 					</div>
 				  </div>
@@ -185,14 +178,15 @@
 		</div><!-- /.container-fluid -->
   	</section>
 </div>
-{% endblock %}
+<% endblock %}
 
 
+<%#
 <% content_for page-js => begin %>
   	<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard_refresh.js') }}"></script>
 	<script>
 		window.csrftoken="{{ csrf_token }}";
 	</script>
 <% end %>
-
+%>
 

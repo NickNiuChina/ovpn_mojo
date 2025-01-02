@@ -33,6 +33,11 @@ sub set_language ($self) {
 }
 
 # This action will render a template
+sub dashboard ($c) {
+   $c->render(template => 'ovpn/dashboard', system_info => {});
+}
+
+# This action will render a template
 sub clientsStatus ($c) {
    $c->render(template => 'ovpn/clientsStatus',msg => 'To be filled');
 }
