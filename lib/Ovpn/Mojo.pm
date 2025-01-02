@@ -83,6 +83,9 @@ sub startup ($c) {
 
     $auth->get('/tips')->to('Auth#show_help')->name("show_help");
     $auth->get('/language')->to(controller => 'Views', action => 'set_language')->name('set_language');    
+    $auth->get('/language')->to(controller => 'Views', action => 'set_language')->name('set_language');    
+    
+    $auth->get('/')->to('Views#index')->name('index');    
     
     $auth->get('/clientstatus')->to('Views#clientsStatus');
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');
