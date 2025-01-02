@@ -75,10 +75,10 @@ sub startup ($c) {
 
     # Normal and secured routes to controller
     # $r->get('/upload_image')->to(controller => 'UploadImageController', action => 'index');
-    $r->get('/service')->to('Auth#login')->name("login");
-    my $auth = $r->under('/service')->to('Auth#auth_check');
-    $r->post('/service/login')->to('Auth#login_validate')->name("login_validate");
-    $r->any(['GET', 'POST'] => '/service/logout')->to('Auth#logout')->name("logout");
+    $r->get('/mojo')->to('Auth#login')->name("login");
+    my $auth = $r->under('/mojo')->to('Auth#auth_check');
+    $r->post('/mojo/login')->to('Auth#login_validate')->name("login_validate");
+    $r->any(['GET', 'POST'] => '/mojo/logout')->to('Auth#logout')->name("logout");
     
 
     $auth->get('/tips')->to('Auth#show_help')->name("show_help");
