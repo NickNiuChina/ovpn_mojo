@@ -178,9 +178,8 @@
 		</div><!-- /.container-fluid -->
   	</section>
 </div>
-<% endblock %}
 
-<% content_for page-js => begin %>
+<% content_for 'page-js' => begin %>
   	<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard_refresh.js') }}"></script>
 	<script>
 		window.csrftoken="{{ csrf_token }}";
