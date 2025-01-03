@@ -39,3 +39,5 @@ supported_languages:
 ovpn_learn_address: 'yes'
 site_name: 'Carel Site'
 ovpn_status_file: '/etc/openvpn/server-tcp/openvpn-tcp-status.log'
+
+session_expiration: 9000

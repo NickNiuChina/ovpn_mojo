@@ -11,33 +11,33 @@ sub index ($c) {
 
 sub login ($c) {
     if ($c->req->method eq 'GET') {
-    my $dbh = Ovpn::Mojo::DB->connect();
-    $c->stash( error   => $c->flash('error') );
-    $c->stash( message => $c->flash('message') );
-    $c->render(template => 'auth/login');
-} 
-if ($c->req->method eq 'POST') {
-    # Get the user name and password from the page
-    my $username = $c->param('username');
-    my $password = $c->param('password');
-    # debug info
-    $c->log->debug("Trying login");
-    $c->log->debug("Username input: $username");
-    $c->log->debug("Pssword input: $password");
+        my $dbh = Ovpn::Mojo::DB->connect();
+        $c->stash( error   => $c->flash('error') );
+        $c->stash( message => $c->flash('message') );
+        $c->render(template => 'auth/login');
+    } 
+    if ($c->req->method eq 'POST') {
+        # Get the user name and password from the page
+        my $username = $c->param('username');
+        my $password = $c->param('password');
+        # debug info
+        $c->log->debug("Trying login");
+        $c->log->debug("Username input: $username");
+        $c->log->debug("Pssword input: $password");
 
-    my $user = Ovpn::Mojo::Service::OmDBIx->login($username, $password);
+        my $user = Ovpn::Mojo::Service::OmDBIx->login($username, $password);
 
-    if ($user) {
-        # Creating session
-        $c->session(is_auth => 1);             # set the logged_in flag
-        $c->session(username => $user->username);
-        $c->session(group => $user->group->name);
-        $c->session(expiration => 7200);        # expire this session in 2h minutes if no activity
-        $c->redirect_to('/mojo/clientstatus')
-    } else {
-        $c->flash( error => 'Invalid User/Password, please try again' );
-        return $c->redirect_to("login");
-    }
+        if ($user) {
+            # Creating session
+            $c->session(is_auth => 1);             # set the logged_in flag
+            $c->session(username => $user->username);
+            $c->session(group => $user->group->name);
+            $c->session(expiration => $c->config->session_expiration);  # expire this session in setting secs if no activity
+            $c->redirect_to('/mojo/clientstatus')
+        } else {
+            $c->flash( error => 'Invalid User/Password, please try again' );
+            return $c->redirect_to("login");
+        }
     }
 }
 
