@@ -33,7 +33,7 @@ sub set_language ($self) {
 }
 
 # This action will render a template
-sub dashboard ($c) {
+sub index ($c) {
    $c->render(template => 'ovpn/dashboard', system_info => {});
 }
 

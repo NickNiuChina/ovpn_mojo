@@ -10,14 +10,13 @@ sub index ($c) {
 }
 
 sub login ($c) {
+    if ($c->req->method eq 'GET') {
     my $dbh = Ovpn::Mojo::DB->connect();
     $c->stash( error   => $c->flash('error') );
     $c->stash( message => $c->flash('message') );
     $c->render(template => 'auth/login');
-}
-
-sub login_validate ($c) {
-
+} 
+if ($c->req->method eq 'POST') {
     # Get the user name and password from the page
     my $username = $c->param('username');
     my $password = $c->param('password');
@@ -38,6 +37,7 @@ sub login_validate ($c) {
     } else {
         $c->flash( error => 'Invalid User/Password, please try again' );
         return $c->redirect_to("login");
+    }
     }
 }
 
