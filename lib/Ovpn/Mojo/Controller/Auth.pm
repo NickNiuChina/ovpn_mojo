@@ -32,7 +32,7 @@ sub login ($c) {
             $c->session(is_auth => 1);             # set the logged_in flag
             $c->session(username => $user->username);
             $c->session(group => $user->group->name);
-            $c->session(expiration => $c->config->session_expiration);  # expire this session in setting secs if no activity
+            $c->session(expiration => int ($c->config->{session_expiration}));  # expire this session in setting secs if no activity
             $c->redirect_to('/mojo/clientstatus')
         } else {
             $c->flash( error => 'Invalid User/Password, please try again' );
