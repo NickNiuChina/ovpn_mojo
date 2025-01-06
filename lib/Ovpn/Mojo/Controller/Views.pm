@@ -38,6 +38,7 @@ sub index ($c) {
    my $system_info = {
        system_type => 'Linux',
        load_avg => [0.1, 0.1, 0.1],
+       fake => 1,
        system_time => localtime
    };
    $c->render(template => 'ovpn/dashboard', system_info => $system_info);
