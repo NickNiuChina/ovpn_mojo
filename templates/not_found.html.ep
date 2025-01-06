@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Not found</title>
+    <base href="http://127.0.0.1:3000">
 </head>
 <body>
 <h1>Not found</h1>
