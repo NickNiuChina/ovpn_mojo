@@ -112,19 +112,36 @@
             
           </li>    %>
 
+          <%# users %}
+          % if ( session->{'group'} eq 'ADMIN' ||  session->{'group'} eq "SUPER" ) {
+            <li class="nav-item">
+              <a href="<%= url_for('users') %>" class="nav-link active">
+                <i class="nav-icon fas fa-users"></i>
+                <p>Users Management</p>
+              </a>
+            </li>
+          % } 
+
           <%# menus for privileged users %>
           % if (session->{group} eq 'SUPER') {
 
               <li class="nav-item menu-open">
                 <a href="javascript:void(0);" class="nav-link">
-                  <i class="nav-icon fa fa-user-secret"></i>
+                  <i class="nav-icon fas fa-gear"></i>
                   <p>
                     Configuration
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-                  
+
+                  <li class="nav-item">
+                    <a href="<%= url_for('system_config') %>" class="nav-link">
+                      <i class="nav-icon far fa-file"></i>
+                      <p>System Config</p>
+                    </a>
+                  </li>
+
                   <li class="nav-item">
                     <a href="<%= url_for('session') %>" target="_blank" class="nav-link">
                       <i class="nav-icon far fa-file"></i>
