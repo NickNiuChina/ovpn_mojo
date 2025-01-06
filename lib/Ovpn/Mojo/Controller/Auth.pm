@@ -6,7 +6,7 @@ use Ovpn::Mojo::Service::OmDBIx;
 # This action will render a template
 sub index ($c) {
     # Render template "somedir/fn.html.ep" with message
-    return $c->redirect_to('mojo');
+    return $c->redirect_to('index');
 }
 
 sub login ($c) {
