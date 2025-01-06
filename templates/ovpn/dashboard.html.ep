@@ -41,7 +41,7 @@
 						<span class="info-box-number2" id="db_system_type"><%= $system_info->{'system_type'} %></span>
 					  </span><br>
 					  <span class="info-box-text">
-						<span class="info-box-number2" id="db_system_version"> <%= $system_info->{'system_version'} %> </span>
+						<span class="info-box-number2" id="db_system_version"> <%= $system_info->{'fake'} %> </span>
 					  </span>
 					</div>
 				  </div>
@@ -148,7 +148,7 @@
 			  </div>
 			</div>
 
-		{# OpenVPN version #}
+		<%# OpenVPN version %>
 		  <div class="row">
 			<div class="col-md-6 col-sm-12 col-12" style="height: 200px;">
 			  <div class="info-box">
