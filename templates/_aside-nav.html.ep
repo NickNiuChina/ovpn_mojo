@@ -14,22 +14,19 @@
           <%# Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library %>
 
+              <li class="nav-item">
+                <a href="<%= url_for('index') %>" class="nav-link">
+                  <i class="nav-icon fa fa-dashboard"></i>
+                  <p>Dashboard</p>
+                </a>
+              </li>
 
-
-
-          <li class="nav-item">
-            <a href="{{ url_for('ovpn.index') }}" class="nav-link">
-              <i class="nav-icon fa fa-dashboard"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
-
-		  <li class="nav-item">
-            <a href="{{ url_for('ovpn.servers') }}" class="nav-link">
-              <i class="nav-icon fa-regular fa-rectangle-list"></i>
-              <p>OpenVPN services</p>
-            </a>
-          </li>
+              <li class="nav-item">
+                <a href="<%= url_for('ovpn_services') %>" class="nav-link">
+                  <i class="nav-icon fa-regular fa-rectangle-list"></i>
+                  <p>OpenVPN services</p>
+                </a>
+              </li>
 
 
                <li class="nav-item menu-open">
@@ -93,12 +90,6 @@
 
                 </ul>
               </li>
-    
-
-          
-        <%# tap menu here %>
-        
-
  
           <%#
           <li class="nav-item menu-open">
@@ -109,7 +100,8 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-                        <ul class="nav nav-treeview">
+            
+            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-file nav-icon"></i>
@@ -117,10 +109,11 @@
                 </a>
               </li>
             </ul>
+            
           </li>    %>
 
-
-          % if (session->{username} eq 'super') {
+          <%# menus for privileged users %>
+          % if (session->{group} eq 'SUPER') {
 
               <li class="nav-item menu-open">
                 <a href="javascript:void(0);" class="nav-link">
@@ -155,7 +148,7 @@
 
                 </ul>
               </li>
-              % }
+          % }
 
         </ul>
       </nav>
