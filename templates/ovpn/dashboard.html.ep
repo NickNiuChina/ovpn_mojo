@@ -62,9 +62,9 @@
 						</span>
 					  </span><br>
 					  <span class="info-box-number">
-						1m: <b  id="db_load_avg0">{{system_info.load_avg.0}}</b> &nbsp; &nbsp;
-						5m: <b id="db_load_avg1">{{ system_info.load_avg.1}}</b> &nbsp; &nbsp;
-						15m: <b id="db_load_avg2">{{ system_info.load_avg.2}}</b><br/>
+						1m: <b  id="db_load_avg0"><%= $system_info->{'load_avg'}->[0] %></b> &nbsp; &nbsp;
+						5m: <b id="db_load_avg1"><%= $system_info->{'load_avg'}->[1] %></b> &nbsp; &nbsp;
+						15m: <b id="db_load_avg2"><%= $system_info->{'load_avg'}->[2] %></b><br/>
 					  </span>
 					</div>
 				  </div>
@@ -78,7 +78,7 @@
 				<div class="small-box shadow" style="background-color:#ffc107; color: white;">
 				  <div class="inner">
 					<h3>OS uptime</h3>
-					<span class="info-box-number" id="db_system_uptime">{{system_info.system_uptime}}</span><br/><br/>
+					<span class="info-box-number" id="db_system_uptime"><%= $system_info->{'system_time'} %></span><br/><br/>
 				  </div>
 				  <div class="icon">
 					<i class="ion ion-md-trending-up"></i>
@@ -91,7 +91,7 @@
 				  <div class="inner">
 					<h3>Server Time</h3>
 					<span class="info-box-number" id="db_system_time">
-					  {{system_info.system_time}}
+					  <%= $system_info->{'system_time'} %>
 					</span><br/><br/>
 				  </div>
 				  <div class="icon">
@@ -104,7 +104,7 @@
 		</div>
 
 
-			{# Memory info #}
+			<%# Memory info %>
 			<h3 class="mt-4 mb-2">Memory usage</h3>
 			<div class="row">
 			  <div class="col-md-6">
@@ -180,9 +180,9 @@
 </div>
 
 <% content_for 'page-js' => begin %>
-  	<script type="text/javascript" src="{{ url_for('static', filename='js/dashboard_refresh.js') }}"></script>
+  	<script type="text/javascript" src="dist/js/dashboard_refresh.js"></script>
 	<script>
-		window.csrftoken="{{ csrf_token }}";
+		window.csrftoken="csrf_token";
 	</script>
 <% end %>
 

@@ -3,6 +3,7 @@ use Mojo::Base 'Mojolicious::Controller', -signatures;
 use Data::Printer;
 use Ovpn::Mojo::DB;
 use DBI;
+use Time::Piece;
 
 # change language
 sub set_language ($self) {
@@ -34,7 +35,12 @@ sub set_language ($self) {
 
 # This action will render a template
 sub index ($c) {
-   $c->render(template => 'ovpn/dashboard', system_info => {});
+   my $system_info = {
+       system_type => 'Linux',
+       load_avg => [0.1, 0.1, 0.1],
+       system_time => localtime
+   };
+   $c->render(template => 'ovpn/dashboard', system_info => $system_info);
 }
 
 # This action will render a template
