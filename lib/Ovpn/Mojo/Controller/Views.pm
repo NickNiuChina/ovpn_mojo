@@ -16,14 +16,14 @@ sub set_language ($self) {
 
     # p $self->req->headers->referrer;
     my $language = $self->config->{supported_languages};
-
+    $self->log->trace($self->req->headers->referrer);
     my %lh = map {$_ => 1} @$language;
     
     if (exists $lh{$nl}) {
         $self->languages($nl);
         $self->session(lang => $nl);  
         $self->config->{current_language} = $nl;
-        $self->redirect_to('/service/tunclientstatus');
+        $self->redirect_to('index');
     }
     else {
         $self->flash( error => 'New language is not supported!' );
