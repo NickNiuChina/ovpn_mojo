@@ -14,6 +14,24 @@
           <%# Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library %>
 
+
+
+
+          <li class="nav-item">
+            <a href="{{ url_for('ovpn.index') }}" class="nav-link">
+              <i class="nav-icon fa fa-dashboard"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+
+		  <li class="nav-item">
+            <a href="{{ url_for('ovpn.servers') }}" class="nav-link">
+              <i class="nav-icon fa-regular fa-rectangle-list"></i>
+              <p>OpenVPN services</p>
+            </a>
+          </li>
+
+
                <li class="nav-item menu-open">
                 <a href="javascript:void(0);" class="nav-link">
                   <i class="nav-icon fas fa-server"></i>
@@ -115,21 +133,21 @@
                 <ul class="nav nav-treeview">
                   
                   <li class="nav-item">
-                    <a href="service/system/session" target="_blank" class="nav-link">
+                    <a href="<%= url_for('session') %>" target="_blank" class="nav-link">
                       <i class="nav-icon far fa-file"></i>
                       <p>Current session</p>
                     </a>
                   </li>
                 
                   <li class="nav-item">
-                    <a href="service/system/appConfig" target="_blank" class="nav-link">
+                    <a href="<%= url_for('app_config') %>" target="_blank" class="nav-link">
                       <i class="nav-icon far fa-file"></i>
                       <p>Mojolicious App config</p>
                     </a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="service/system/appAttr" target="_blank" class="nav-link">
+                    <a href="<%= url_for('app_config') %>" target="_blank" class="nav-link">
                       <i class="nav-icon far fa-file"></i>
                       <p>Mojolicious App Attr</p>
                     </a>

@@ -5,6 +5,7 @@ use Data::Printer;
 use Log::Log4perl;
 use File::Basename;
 use MojoX::Log::Log4perl;
+use Ovpn::Mojo::Utils;
 
 # This method will run once at server start
 sub startup ($c) {
@@ -37,6 +38,12 @@ sub startup ($c) {
     $c->log->info("*********        APP STARTED     *********");
     $c->log->info("*********************************************************************");
     $c->log->info("*********************************************************************");
+    
+    # check default groups and user
+    $c->log->trace("Ahout to check default groups and user...");
+    Ovpn::Mojo::Utils->confirm_default_user();
+    
+    $c->defaults({error => '', message => ''});
 
     # Cron task to update the expire date
     $c->plugin(

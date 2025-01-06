@@ -12,13 +12,15 @@ use Crypt::Password;
 
 our $log = Log::Log4perl->get_logger('');
 
-sub confirm_super_user {
+sub confirm_default_user {
     my $class = shift;
+    my $schema = Ovpn::Mojo::DB->get_schema();
     # groups
     $log->trace("Check if defaul grops are ready.");
     my @groups = ('ADMIN', 'SUPER', 'USER', 'GUEST');
-    for my $group @groups {
-        my $ug = $schema->resultset('OmGroups')->search({ name => $group })->first();
+    my $ug = '';
+    for my $group (@groups) {
+        $ug = $schema->resultset('OmGroups')->search({ name => $group })->first();
         if ($ug) {
             $log->trace("Group: $group is ready. Skip.");
         } else {
@@ -32,12 +34,13 @@ sub confirm_super_user {
     
     # default user
     $log->trace("Check if defaul super user is ready.");
-    my $schema = Ovpn::Mojo::DB->get_schema();
     my $user = $schema->resultset('OmUsers')->search({ username => 'super' })->first();
     if ($user) {
         $log->info("Default super user is ready.");
     } else {
         $log->warn("Defualt super user is NOT ready. Add it now.");
+	$ug = $schema->resultset('OmGroups')->search({ name => 'SUPER' })->first();
+        my $u_id = $ug->id;
             my $new_user = $schema->resultset('OmUsers')->new({
                 username => "super",
                 password => password("super"),
