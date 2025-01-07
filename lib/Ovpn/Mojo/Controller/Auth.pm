@@ -20,6 +20,8 @@ sub login ($c) {
         # Get the user name and password from the page
         my $username = $c->param('username');
         my $password = $c->param('password');
+        my $remember = $c->param('remember');
+
         # debug info
         $c->log->debug("Trying login");
         $c->log->debug("Username input: $username");
@@ -32,8 +34,12 @@ sub login ($c) {
             $c->session(is_auth => 1);             # set the logged_in flag
             $c->session(username => $user->username);
             $c->session(group => $user->group->name);
-            $c->session(expiration => int ($c->config->{session_expiration}));  # expire this session in setting secs if no activity
-            $c->redirect_to('/mojo/clientstatus')
+	    if ($remember eq 'on'){
+		$c->session(expiration => int(60*60*24*7));
+	    } else {
+                $c->session(expiration => int ($c->config->{session_expiration}));  # expire this session in setting secs if no activity
+	    }
+            $c->redirect_to('index')
         } else {
             $c->flash( error => 'Invalid User/Password, please try again' );
             return $c->redirect_to("login");
@@ -66,6 +72,7 @@ sub auth_check {
     # $c->stash( message => $c->flash('message') );
     # $c->render(template => 'base/login');
     # return;
+    $c->log->debug("Previous URL:" . $c->req->url);
     $c->redirect_to('login');
     return undef;  
 }

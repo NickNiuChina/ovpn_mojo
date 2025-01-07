@@ -112,7 +112,7 @@
             
           </li>    %>
 
-          <%# users %}
+          <%# users %>
           % if ( session->{'group'} eq 'ADMIN' ||  session->{'group'} eq "SUPER" ) {
             <li class="nav-item">
               <a href="<%= url_for('users') %>" class="nav-link active">
