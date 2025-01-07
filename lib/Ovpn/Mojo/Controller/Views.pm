@@ -35,12 +35,8 @@ sub set_language ($self) {
 
 # This action will render a template
 sub index ($c) {
-   my $system_info = {
-       system_type => 'Linux',
-       load_avg => [0.1, 0.1, 0.1],
-       fake => 1,
-       system_time => localtime
-   };
+   my $system_info = Ovpn::Mojo::Utils->get_system_info();
+   $c->log->debug("Get system info: " . np $system_info);
    $c->render(template => 'ovpn/dashboard', system_info => $system_info);
 }
 

@@ -19,4 +19,9 @@ Log::Dispatch::FileRotate
 MojoX::Log::Log4perl
 
 # password crypt and check
-Crypt::Password;
+Crypt::Password
+
+# others
+Unix::Uptime
+Sys::CpuAffinity
+Sys::MemInfo

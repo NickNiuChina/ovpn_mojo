@@ -96,7 +96,7 @@ sub startup ($c) {
     $auth->get('/language')->to(controller => 'Views', action => 'set_language')->name('set_language');   
     
     # dashboard page
-    $auth->get('/dashboard')->to('Views#index')->name('index');    
+    $auth->any(['GET', 'POST'] => '/dashboard')->to('Views#index')->name('index');    
     
     $auth->get('/clientstatus')->to('Views#clientsStatus');
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');

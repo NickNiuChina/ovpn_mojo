@@ -5,6 +5,11 @@ use Data::Printer;
 #use Log::Log4perl;
 use Ovpn::Mojo::DB;
 use Crypt::Password; 
+use Config;
+use Time::Piece;
+use Unix::Uptime;
+use Sys::CpuAffinity;
+use Sys::MemInfo qw(totalmem freemem totalswap freeswap);
 
 #
 # APP utils
@@ -52,4 +57,61 @@ sub confirm_default_user {
     }
 }
 
+
+sub get_system_info {
+    # refer to _END_ for return sample 
+    my $class = shift;
+    my $system_info = {};
+    $system_info->{system_type} = $Config{osname};
+    $system_info->{system_version} = $Config{osvers};
+    $system_info->{system_time} = Time::Piece::localtime->strftime('%Y%m%d_%H%M%S');;
+
+    $system_info->{cpu_cores} = Sys::CpuAffinity::getNumCpus();
+
+    my $uptime = Unix::Uptime->uptime(); # 2345
+    my $start = localtime;
+    my $duration = ($end - $start)->pretty;
+    $system_info->{system_uptime} = $duration;
+
+    my ($load1, $load5, $load15) = Unix::Uptime->load(); # (1.0, 2.0, 0.0)
+    $system_info->{load_avg} = [$load1, $load5, $load15];
+
+    my $memory_total = &totalmem / 1024;
+    my $memory_used = (&totalmem - &freemem)/1024;
+    $system_info->{memory_total} = $memory_total;
+    $system_info->{memory_used} = $memory_used;
+    $system_info->{memory_percent} = $memory_used / $memory_total;
+
+    my $swap_total = &totalswap / 1024;
+    my $swap_used = (&totalswap - &freeswap)/1024;
+    $system_info->{swap_total} = $swap_total;
+    $system_info->{swap_used} = $swap_used;
+    $system_info->{swap_percent} = $swap_used / $swap_total;
+    
+    $system_info->{openvpn_version} = '';
+
+    $system_info->{system_information} = '';
+
+    return $system_info;
+}
+
 1;
+
+__END__
+
+$system_info = {
+    system_type => $system_type,
+    system_version => $platform->release(),
+    system_time => $datetime,
+    cpu_cores => $cpu_count,
+    system_uptime => $uptime_str,
+    load_avg => $load_avg,
+    memory_total => $memory_total,
+    memory_used => $memory_used,
+    memory_percent => $memory_percent,
+    swap_total => $swap_total,
+    swap_used => $swap_used,
+    swap_percent => $swap_percent,
+    openvpn_version => $openvpn_version,
+    system_information => $system_information
+}
