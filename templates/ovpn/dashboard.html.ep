@@ -38,10 +38,10 @@
 					<h3>OS </h3>
 					<div class="info-box-content">
 					  <span class="info-box-text">
-						<span class="info-box-number2" id="db_system_type"><%= $system_info->{'system_type'} %></span>
+						<span class="info-box-number2" id="db_system_type"><%= $system_info->{system_type} %></span>
 					  </span><br>
 					  <span class="info-box-text">
-						<span class="info-box-number2" id="db_system_version"> <%= $system_info->{'fake'} %> </span>
+						<span class="info-box-number2" id="db_system_version"> <%= $system_info->{system_version} %> </span>
 					  </span>
 					</div>
 				  </div>
@@ -62,9 +62,9 @@
 						</span>
 					  </span><br>
 					  <span class="info-box-number">
-						1m: <b  id="db_load_avg0"><%= $system_info->{'load_avg'}->[0] %></b> &nbsp; &nbsp;
-						5m: <b id="db_load_avg1"><%= $system_info->{'load_avg'}->[1] %></b> &nbsp; &nbsp;
-						15m: <b id="db_load_avg2"><%= $system_info->{'load_avg'}->[2] %></b><br/>
+						1m: <b  id="db_load_avg0"><%= $system_info->{load_avg}->[0] %></b> &nbsp; &nbsp;
+						5m: <b id="db_load_avg1"><%= $system_info->{load_avg}->[1] %></b> &nbsp; &nbsp;
+						15m: <b id="db_load_avg2"><%= $system_info->{load_avg}->[2] %></b><br/>
 					  </span>
 					</div>
 				  </div>
@@ -78,7 +78,7 @@
 				<div class="small-box shadow" style="background-color:#ffc107; color: white;">
 				  <div class="inner">
 					<h3>OS uptime</h3>
-					<span class="info-box-number" id="db_system_uptime"><%= $system_info->{'system_time'} %></span><br/><br/>
+					<span class="info-box-number" id="db_system_uptime"><%= $system_info->{system_time} %></span><br/><br/>
 				  </div>
 				  <div class="icon">
 					<i class="ion ion-md-trending-up"></i>
@@ -91,7 +91,7 @@
 				  <div class="inner">
 					<h3>Server Time</h3>
 					<span class="info-box-number" id="db_system_time">
-					  <%= $system_info->{'system_time'} %>
+					  <%= $system_info->{system_time} %>
 					</span><br/><br/>
 				  </div>
 				  <div class="icon">
@@ -112,14 +112,14 @@
 				  <div class="card-body">
 					<div class="progress-group">
 					  <span class="progress-number" id="db_memory">
-						Memory <b><%= $system_info->{'fake'} %></b>
+						Memory <b><%= $system_info->{memory_used} %></b>
 						/
-						<%= $system_info->{'fake'} %>
-						- <%= $system_info->{'fake'} %>%
+						<%= $system_info->{memory_total} %>
+						- <%= $system_info->{memory_percent} %>%
 					  </span>
 					  <div class="progress progress-xs">
 						<div id="memory_progressBar" class="progress-bar bg-primary progress-bar-striped"
-						  style="width: <%= $system_info->{'fake'} %> %">
+						  style="width: <%= $system_info->{memory_percent} %>%">
 						</div>
 					  </div>
 					</div>
@@ -132,14 +132,14 @@
 				  <div class="card-body">
 					<div class="progress-group">
 					  <span class="progress-number" id="db_swap">
-						Swap <b><%= $system_info->{'fake'} %> </b>
+						Swap <b><%= $system_info->{swap_used} %> </b>
 						/
-						<%= $system_info->{'fake'} %> MB
-						- <%= $system_info->{'fake'} %> %
+						<%= $system_info->{swap_total} %> MB
+						- <%= $system_info->{swap_percent} %> %
 					  </span>
 					  <div class="progress progress-xs">
 						<div  id="swap_progressBar class="progress-bar bg-primary progress-bar-striped"
-						  style="width: <%= $system_info->{'fake'} %> %">
+						  style="width: <%= $system_info->{swap_percent} %>%">
 						</div>
 					  </div>
 					</div>
@@ -169,7 +169,7 @@
 					<i class="fa fa-gears fa-2x"></i></span>
 				<div class="info-box-content">
 				  <span class="info-box-text">Operating system:</span>
-				  <span class="info-box-number3" id="ds_system_information"><%= $system_info->{'fake'} %> </span>
+				  <span class="info-box-number3" id="ds_system_information"><%= $system_info->{system_information} %> </span>
 				</div>
 			  </div>
 			</div>

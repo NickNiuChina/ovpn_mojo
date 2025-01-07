@@ -35,9 +35,15 @@ sub set_language ($self) {
 
 # This action will render a template
 sub index ($c) {
-   my $system_info = Ovpn::Mojo::Utils->get_system_info();
-   $c->log->debug("Get system info: " . np $system_info);
-   $c->render(template => 'ovpn/dashboard', system_info => $system_info);
+   
+    my $system_info = Ovpn::Mojo::Utils->get_system_info();
+    if ($c->req->method eq 'GET'){
+        $c->log->debug("Get system info: " . np $system_info);
+        $c->render(template => 'ovpn/dashboard', system_info => $system_info);
+    }
+    if ($c->req->method eq 'POST'){
+	return $c->render(json => {system_info => $system_info});
+    }
 }
 
 # This action will render a template

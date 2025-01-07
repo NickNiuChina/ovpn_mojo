@@ -64,33 +64,34 @@ sub get_system_info {
     my $system_info = {};
     $system_info->{system_type} = $Config{osname};
     $system_info->{system_version} = $Config{osvers};
-    $system_info->{system_time} = Time::Piece::localtime->strftime('%Y%m%d_%H%M%S');;
+    $system_info->{system_time} = Time::Piece::localtime->strftime('%Y-%m-%d_%H:%M:%S');;
 
     $system_info->{cpu_cores} = Sys::CpuAffinity::getNumCpus();
 
     my $uptime = Unix::Uptime->uptime(); # 2345
     my $start = localtime;
+    my $end = $start + int($uptime);
     my $duration = ($end - $start)->pretty;
     $system_info->{system_uptime} = $duration;
 
     my ($load1, $load5, $load15) = Unix::Uptime->load(); # (1.0, 2.0, 0.0)
     $system_info->{load_avg} = [$load1, $load5, $load15];
 
-    my $memory_total = &totalmem / 1024;
-    my $memory_used = (&totalmem - &freemem)/1024;
+    my $memory_total = int(&totalmem / 1024/1024 * 10 + 0.5)/10;
+    my $memory_used = int((&totalmem - &freemem)/1024/1024 * 10 + 0.5)/10;
     $system_info->{memory_total} = $memory_total;
     $system_info->{memory_used} = $memory_used;
-    $system_info->{memory_percent} = $memory_used / $memory_total;
+    $system_info->{memory_percent} = int(($memory_used / $memory_total * 1000.0) + 0.5) / 10.0;
 
-    my $swap_total = &totalswap / 1024;
-    my $swap_used = (&totalswap - &freeswap)/1024;
+    my $swap_total = &totalswap / 1024/1024;
+    my $swap_used = (&totalswap - &freeswap)/1024/1024;
     $system_info->{swap_total} = $swap_total;
     $system_info->{swap_used} = $swap_used;
-    $system_info->{swap_percent} = $swap_used / $swap_total;
+    $system_info->{swap_percent} = $swap_total ? int(($memory_used / $memory_total * 1000.0) + 0.5) / 10.0 : 0 ;
     
     $system_info->{openvpn_version} = '';
 
-    $system_info->{system_information} = '';
+    $system_info->{system_information} = $Config{archname};
 
     return $system_info;
 }
