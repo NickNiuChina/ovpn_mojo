@@ -37,8 +37,9 @@ sub login ($c) {
 	    if ($remember eq 'on'){
 		$c->session(expiration => int(60*60*24*7));
 	    } else {
-                $c->session(expiration => int ($c->config->{session_expiration}));  # expire this session in setting secs if no activity
+                $c->session(expiration => int ($c->config->{session_expiration}));
 	    }
+	    # $c->flash( error => 'Logged in successfully!!' );
             $c->redirect_to('index')
         } else {
             $c->flash( error => 'Invalid User/Password, please try again' );

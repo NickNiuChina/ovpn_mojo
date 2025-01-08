@@ -1,13 +1,11 @@
-            % if ( $error ) { 
+            % if ( my $error = flash 'error' ) { 
                 <div class="alert alert-danger col-md-12 mx-auto">
                     <p> <%= $error %> </p>
                 </div>
-                <div class="text-danger"><%= $error %></div>
             % }
 
-            <% if ( $message ) { %>
+            % if (my $message = flash 'message' ) {
                 <div class="alert alert-success col-md-12 mx-auto">
                     <p> <%= $message %> </p>
                 </div>
-                <div class="text-success"><%= $message %></div>
-            <% } %>
+            % }

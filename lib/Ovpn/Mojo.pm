@@ -43,7 +43,8 @@ sub startup ($c) {
     $c->log->trace("Ahout to check default groups and user...");
     Ovpn::Mojo::Utils->confirm_default_user();
     
-    $c->defaults({error => '', message => ''});
+    # default value for every request
+    #$c->defaults({error => '', message => ''});
 
     # Cron task to update the expire date
     $c->plugin(
