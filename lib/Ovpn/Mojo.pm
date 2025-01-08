@@ -100,7 +100,7 @@ sub startup ($c) {
     $auth->any(['GET', 'POST'] => '/dashboard')->to('Views#index')->name('index');    
     
     # openvpn servers
-    $auth->any(['GET', 'POST'] => '/servers')->to('Views#servers')->name('servers');  
+    $auth->any(['GET', 'POST'] => '/servers')->to('Views#servers')->name('ovpn_services');  
 
     $auth->get('/clientstatus')->to('Views#clientsStatus');
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');

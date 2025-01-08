@@ -32,6 +32,34 @@ $(document).ready(function() {
         return [year, month, day].join('-') + "_" + [hour, min, sec].join(':');
     };
 
+    /*
+       nav highlight when a.href == location.pathname
+   */
+
+    $(".nav-item").find("li").each(function() {
+        var a = $(this).find("a:first")[0];
+        // console.log(a);
+        if ($(a).attr("href") === location.pathname) {
+            $(a).addClass("active");
+            console.log("==========================");
+        } else {
+            $(a).removeClass("active");
+            console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+        }
+    });
+
+    /*
+        nav highlight when a.href == location.pathname
+    */
+    $(".nav-sidebar").find("li").each(function() {
+        var a = $(this).find("a:first")[0];
+        if ($(a).attr("href") === location.pathname) {
+            $(a).addClass("active");
+        } else {
+            $(a).removeClass("active");
+        }
+    });
+
     $("#tbclientstatus").DataTable({
         // "dom": 'Blfrtip',
         "dom": '<"row"<"col"B><"col"f>>rt<"row"<"col"i><"col"p>>',
