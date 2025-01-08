@@ -39,6 +39,7 @@ sub index ($c) {
     my $system_info = Ovpn::Mojo::Utils->get_system_info();
     if ($c->req->method eq 'GET'){
         $c->log->debug("Get system info: " . np $system_info);
+	$c->flash( error => 'Test');
         $c->render(template => 'ovpn/dashboard', system_info => $system_info);
     }
     if ($c->req->method eq 'POST'){

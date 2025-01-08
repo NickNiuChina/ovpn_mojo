@@ -158,7 +158,7 @@
 				  <!--i class="fa fa-info fa-2x"></i></span-->
 				<div class="info-box-content">
 				  <span class="info-box-text">OpenVPN version:</span>
-				  <span class="info-box-number3" id="ds_openvpn_version"><%= $system_info->{'fake'} %> </span>
+				  <span class="info-box-number3" id="ds_openvpn_version"><%= $system_info->{openvpn_version} %> </span>
 				</div>
 			  </div>
 			</div>

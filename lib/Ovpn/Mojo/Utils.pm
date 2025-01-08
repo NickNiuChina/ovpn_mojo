@@ -89,11 +89,26 @@ sub get_system_info {
     $system_info->{swap_used} = $swap_used;
     $system_info->{swap_percent} = $swap_total ? int(($memory_used / $memory_total * 1000.0) + 0.5) / 10.0 : 0 ;
     
-    $system_info->{openvpn_version} = '';
+    $system_info->{openvpn_version} = get_openvpn_version();
 
     $system_info->{system_information} = $Config{archname};
 
     return $system_info;
+}
+
+sub get_openvpn_version {
+
+    my @cmd_output = '';
+    if (! system("openvpn --version")) {
+	@cmd_output = qx(openvpn --version);
+    }
+    if (! system("/usr/sbin/openvpn --version")) {
+	@cmd_output = qx(/usr/sbin/openvpn --version);
+    }
+
+    my $result = $cmd_output[0];
+
+    return $result;
 }
 
 1;
