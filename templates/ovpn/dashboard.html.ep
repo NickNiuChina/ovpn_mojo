@@ -1,4 +1,4 @@
-  % layout 'default';
+% layout 'default';
 
 % content_for title => begin
   Dashboard

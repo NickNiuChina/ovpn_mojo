@@ -5,12 +5,10 @@ use Ovpn::Mojo::DB;
 use DBI;
 use Time::Piece;
 
-# change language
+#***********************************************************
+# Change language
+#***********************************************************
 sub set_language ($self) {
-    # p $self->config->{users};
-    # $self->languages('en');
-    # p $self->languages;
-    # p $self->param('language');
 
     # new language
     my $nl = $self->param('language');
@@ -33,14 +31,17 @@ sub set_language ($self) {
     }
 }
 
-# This action will render a template
+#***********************************************************
+# Dashboard
+#***********************************************************
 sub index ($c) {
    
     my $system_info = Ovpn::Mojo::Utils->get_system_info();
     if ($c->req->method eq 'GET'){
         $c->log->debug("Get system info: " . np $system_info);
-	# flash works only when redirect
-	# $c->stash( error => 'Test');
+        # flash works only when redirect
+        # $c->stash( error => 'Test');
+        # for render and flash -> $c->stash(error => $c->flash('error))
         $c->render(template => 'ovpn/dashboard', system_info => $system_info);
     }
     if ($c->req->method eq 'POST'){
@@ -48,7 +49,16 @@ sub index ($c) {
     }
 }
 
-# This action will render a template
+#***********************************************************
+# Dashboard
+#***********************************************************
+sub servers ($c) {
+   
+    $c->render(template => 'ovpn/servers');
+}
+
+
+
 sub clientsStatus ($c) {
    $c->render(template => 'ovpn/clientsStatus',msg => 'To be filled');
 }

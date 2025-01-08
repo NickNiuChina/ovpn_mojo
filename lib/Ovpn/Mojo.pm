@@ -99,6 +99,9 @@ sub startup ($c) {
     # dashboard page
     $auth->any(['GET', 'POST'] => '/dashboard')->to('Views#index')->name('index');    
     
+    # openvpn servers
+    $auth->any(['GET', 'POST'] => '/servers')->to('Views#servers')->name('servers');  
+
     $auth->get('/clientstatus')->to('Views#clientsStatus');
     $auth->post('/clientstatus/list')->to('Views#clientsStatuslist');
     $auth->post('/clientstatus/update')->to('Views#clientStatusUpdate');
