@@ -157,7 +157,7 @@
                   </li>
 
                   <li class="nav-item">
-                    <a href="<%= url_for('app_config') %>" target="_blank" class="nav-link">
+                    <a href="<%= url_for('app_attr') %>" target="_blank" class="nav-link">
                       <i class="nav-icon far fa-file"></i>
                       <p>Mojolicious App Attr</p>
                     </a>

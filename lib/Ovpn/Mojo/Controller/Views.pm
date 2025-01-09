@@ -963,9 +963,11 @@ sub sys_app_config ($self) {
     $self->render(json => $config);
 }
 
-sub sys_app_attr ($self) {
-    # p $self;
-    $self->render(json => np $self);
+sub sys_app_attr ($c) {
+    $c->log->trace("Mojo APP object: ");
+    $c->log->trace(np $c);
+    $c->log->trace("Mojo APP routes: ");
+    $c->render(json => np $c);
 }
 
 1;
