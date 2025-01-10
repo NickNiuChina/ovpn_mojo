@@ -50,7 +50,7 @@ sub index ($c) {
 }
 
 #***********************************************************
-# Dashboard
+# OpenVPN services
 #***********************************************************
 sub servers ($c) {
    
@@ -973,7 +973,10 @@ sub sys_app_attr ($c) {
 }
 
 sub app_url_map($c) {
+
+    # dump all the APP routes
     # refer to Mojolicious::Command::routes
+
     my $rows = [];
     _walk($_, 0, $rows, my $verbose) for @{$c->app->routes->children};
     use Mojo::Util qw(encode getopt tablify);
