@@ -53,12 +53,28 @@ sub index ($c) {
 # OpenVPN services
 #***********************************************************
 sub servers ($c) {
-   
-    $c->render(template => 'ovpn/servers');
+    # GET
+    if ($c->req->method eq 'POST'){
+        $c->render(template => 'ovpn/servers');
+    }
+
+    # POST
+    if ($c->req->method eq 'POST'){
+        my $params_hash = $req->params->to_hash;
+        switch($req->param('action')) 
+            case 'action_add_ovpn_server'   {
+                    return $c->redirect_to('ovpn_services');
+                }
+            else {
+                return 
+            }
+    }
 }
 
 
-
+#***********************************************************
+# OpenVPN clients
+#***********************************************************
 sub clientsStatus ($c) {
    $c->render(template => 'ovpn/clientsStatus',msg => 'To be filled');
 }
