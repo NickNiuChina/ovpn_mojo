@@ -964,10 +964,60 @@ sub sys_app_config ($self) {
 }
 
 sub sys_app_attr ($c) {
-    $c->log->trace("Mojo APP object: ");
+    $c->log->trace("Mojo controller object: ");
     $c->log->trace(np $c);
-    $c->log->trace("Mojo APP routes: ");
-    $c->render(json => np $c);
+    $c->log->trace("Mojo APP object: ");
+    $c->log->trace(np $c->app);
+
+    $c->render(text => (np $c) =~ s/\n/<br>/r . '<br>' . (np $c->app->routes) =~ s/\n/<br>/r);
+}
+
+sub app_url_map($c) {
+    # refer to Mojolicious::Command::routes
+    my $rows = [];
+    _walk($_, 0, $rows, my $verbose) for @{$c->app->routes->children};
+    use Mojo::Util qw(encode getopt tablify);
+    $c->log->trace('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    $c->log->trace(np $_) for @{$c->app->routes->children};
+    $c->log->trace('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+    my $result = encode('UTF-8', tablify($rows));
+    $c->log->trace($result);
+    $c->log->trace('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+    
+    $c->render(text => $result =~ s/\n/<br>/gr);
+}
+
+sub _walk {
+    my ($route, $depth, $rows, $verbose) = @_;
+  
+    # Pattern
+    my $prefix = '';
+    if (my $i = $depth * 2) { $prefix .= ' ' x $i . '+' }
+    push @$rows, my $row = [$prefix . ($route->pattern->unparsed || '/')];
+    
+    # Flags
+    my @flags;
+    push @flags, @{$route->requires // []} ? 'C' : '.';
+    push @flags, (my $partial = $route->partial) ? 'P' : '.';
+    push @flags, $route->inline       ? 'U' : '.';
+    push @flags, $route->is_websocket ? 'W' : '.';
+    push @$row,  join('', @flags) if $verbose;
+    
+    # Methods
+    my $methods = $route->methods;
+    push @$row, !$methods ? '*' : uc join ',', @$methods;
+  
+    # Name
+    my $name = $route->name;
+    push @$row, $route->has_custom_name ? qq{"$name"} : $name;
+    
+    # Regex (verbose)
+    my $pattern = $route->pattern;
+    $pattern->match('/', $route->is_endpoint && !$partial);
+    push @$row, (regexp_pattern $pattern->regex)[0] if $verbose;
+    $depth++;
+    _walk($_, $depth, $rows, $verbose) for @{$route->children};
+    $depth--;
 }
 
 1;

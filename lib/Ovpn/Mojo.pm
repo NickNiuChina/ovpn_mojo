@@ -155,7 +155,8 @@ sub startup ($c) {
     # Secrct info pages higher privis required
     $auth->get('/system/session')->to('Views#sys_session')->name('session');
     $auth->get('/system/appConfig')->to('Views#sys_app_config')->name('app_config');
-    $auth->get('/system/appAttr')->to('Views#sys_app_attr')->name('app_attr');
+    $auth->get('/system/app_attr')->to('Views#sys_app_attr')->name('app_attr');
+    $auth->get('/system/app_url_map')->to('Views#app_url_map')->name('app_url_map');
 
     ###### Other Urls test ########
     $r->get('/test')->to(controller => 'Test', action => 'test')->name('test');
