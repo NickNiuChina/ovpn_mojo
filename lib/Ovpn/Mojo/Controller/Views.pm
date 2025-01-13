@@ -54,21 +54,21 @@ sub index ($c) {
 #***********************************************************
 sub servers ($c) {
     # GET
-    if ($c->req->method eq 'POST'){
+    if ($c->req->method eq 'GET'){
         $c->render(template => 'ovpn/servers');
     }
 
     # POST
     if ($c->req->method eq 'POST'){
         my $params_hash = $c->req->params->to_hash;
-        switch($c->req->param('action')) 
-            case 'action_add_ovpn_server'   {
-                    $c->flash(error => 'Trying to update openvpn services');
-                    return $c->redirect_to('ovpn_services');
-                }
-            else {
-                return 
+        my $action = $c->req->param('action'); 
+            if ($action eq "action_add_ovpn_server") {
+                $c->flash(error => 'Trying to update openvpn services');
+                return $c->redirect_to('ovpn_services');
             }
+	
+	# unsupported ation    
+	return $c->render(json => {error => 'Post action error'});
     }
 }
 
