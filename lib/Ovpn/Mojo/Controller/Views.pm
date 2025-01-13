@@ -60,9 +60,10 @@ sub servers ($c) {
 
     # POST
     if ($c->req->method eq 'POST'){
-        my $params_hash = $req->params->to_hash;
-        switch($req->param('action')) 
+        my $params_hash = $c->req->params->to_hash;
+        switch($c->req->param('action')) 
             case 'action_add_ovpn_server'   {
+                    $c->flash(error => 'Trying to update openvpn services');
                     return $c->redirect_to('ovpn_services');
                 }
             else {
