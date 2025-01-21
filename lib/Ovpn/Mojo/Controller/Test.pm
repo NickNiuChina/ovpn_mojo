@@ -8,7 +8,7 @@ sub test ($c) {
   # get params name
   my $name = $c->req->param('name'); 
   my $home = Mojo::Home->new;
-  $home->detect;
+  $home->detect("Ovpn::Mojo");
   opendir(DIR, $home) or die "can't open $home: $!";
   my @files = readdir DIR;
   closedir DIR;
