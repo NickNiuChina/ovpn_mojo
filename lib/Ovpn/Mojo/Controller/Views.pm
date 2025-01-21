@@ -986,7 +986,7 @@ sub sys_app_attr ($c) {
     $c->log->trace("Mojo APP object: ");
     $c->log->trace(np $c->app);
 
-    $c->render(text => (np $c) =~ s/\n/<br>/r . '<br>' . (np $c->app->routes) =~ s/\n/<br>/r);
+    $c->render(text => (np $c->app) =~ s/\n/<br>/r);
 }
 
 sub app_url_map($c) {

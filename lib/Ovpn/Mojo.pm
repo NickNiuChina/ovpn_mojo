@@ -6,7 +6,9 @@ use Log::Log4perl;
 use File::Basename;
 use MojoX::Log::Log4perl;
 use Ovpn::Mojo::Utils;
-
+use Data::Printer;
+use Mojo::File qw(curfile);
+use lib curfile->dirname->sibling('lib')->to_string;
 # This method will run once at server start
 sub startup ($c) {
 
@@ -39,14 +41,18 @@ sub startup ($c) {
     $c->log->info("*********************************************************************");
     $c->log->info("*********************************************************************");
     
-    # check default groups and user
+    ## -- Check default groups and user
     $c->log->trace("Ahout to check default groups and user...");
     Ovpn::Mojo::Utils->confirm_default_user();
-    
-    # default value for every request
+   
+    ## -- Add another namespace to load commands from
+    push @{$c->commands->namespaces}, 'Ovpn::Mojo::Command';
+    #p $c->commands->namespaces;
+
+    ## -- Default value for every request
     #$c->defaults({error => '', message => ''});
 
-    # Cron task to update the expire date
+    ## -- Cron task to update the expire date
     $c->plugin(
         Cron => '0 1 * * *' => sub {
             my $tms = shift;
@@ -78,10 +84,10 @@ sub startup ($c) {
         }
     );
     
-    # Configure the application
+    ## -- Configure the application
     $c->secrets($config->{secrets});
 
-    # Router
+    ## -- Router
     my $r = $c->routes;
     
     $r->get('/')->to('Auth#index');

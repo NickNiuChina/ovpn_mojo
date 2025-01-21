@@ -6,8 +6,8 @@ After=network-online.target
 Type=forking
 User=root
 PIDFile=/run/ovpn-mojo-hypnotoad.pid
-ExecStart=/usr/local/bin/hypnotoad /opt/ovpn_mojo/script/ovpn_mojo
-ExecReload=/usr/local/bin/hypnotoad /opt/ovpn_mojo/script/ovpn_mojo
+ExecStart=/usr/local/bin/hypnotoad /opt/ovpn_mojo/script/ovpn_mojo daemon -m development -l http://*:3000
+ExecReload=/usr/local/bin/hypnotoad /opt/ovpn_mojo/script/ovpn_mojo daemon -m development -l http://*:3000
 
 KillMode=process
 
