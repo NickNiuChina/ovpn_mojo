@@ -93,4 +93,19 @@ __PACKAGE__->has_many(
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+
+sub new {
+  my $class = shift;
+  my $self = $class->next::method(@_);
+     if (! $self->id ){
+         $self->set_column("id", $self->uuid);
+  }
+  return $self;
+}
+
+
+sub uuid() {
+    return lc(Data::UUID->new->create_str) ;
+}
+
 1;

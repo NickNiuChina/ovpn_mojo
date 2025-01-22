@@ -147,4 +147,31 @@ __PACKAGE__->belongs_to(
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
+sub new {
+  my $class = shift;
+  my $self = $class->next::method(@_);
+
+  if (! $self->id ){
+         $self->set_column("id", $self->uuid);
+  }
+
+  foreach my $col ($self->result_source->columns) {
+    my $default = $self->result_source->column_info($col)->{default_value};
+        if($default && !defined $self->$col()){
+                if (ref $default eq 'SCALAR'){
+                        $self->set_column($col, $self->$$default);
+                } else {
+                        $self->set_column($col, $default)
+                }
+        }
+  }
+  # p $self;
+  return $self;
+}
+
+
+sub uuid() {
+    return Data::UUID->new->create_str ;
+}
+
 1;
