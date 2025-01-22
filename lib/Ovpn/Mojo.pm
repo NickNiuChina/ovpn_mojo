@@ -9,10 +9,11 @@ use Ovpn::Mojo::Utils;
 use Data::Printer;
 use Mojo::File qw(curfile);
 use lib curfile->dirname->sibling('lib')->to_string;
+
 # This method will run once at server start
 sub startup ($c) {
 
-    # Load configuration from config file
+    ## -- Load configuration from config file
     my $config = $c->plugin('NotYAMLConfig');
 
     my $home = Mojo::Home->new;

@@ -33,6 +33,12 @@ use DBIx::Class::Schema::Loader qw/ make_schema_at /;
 
                 deploy_statements: Generate the deploy sql but not deploy at this time
 
+                test: run some test
+
+                prepare_test_data: add test data and files 
+                
+                delete_test_data: delete test data and files 
+
         -h,--help
             Print this help.
 
@@ -162,9 +168,9 @@ if ($action eq 'prepare_test_data'){
         print "\tNew group added done.";
     }
     
-    print "Add test users, name: test1-200\n"; 
+    print "Add test users, name: test1-2000\n"; 
     my $user_password =  '';
-    foreach my $item (1..200) {
+    foreach my $item (1..2000) {
         
         $ug = $schema->resultset('OmGroups')->search({ name => 'TEST' })->first();
         my $u_id = $ug->id;
